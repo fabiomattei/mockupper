@@ -6,5 +6,5 @@
 
 here should be visible the list
 maybe programmable like wordpress...
-I should be avle to handle a query from outsite
+I should be able to handle a query from outsite
 
