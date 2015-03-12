@@ -1,2 +1,2 @@
 # mockupper
-My attempt to make an applications for custo post types
+My attempt to make an applications for custom post types

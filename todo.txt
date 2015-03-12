@@ -1,0 +1,10 @@
+todo:
+
+* create a way for logging in users
+* create a way for handling custom post types
+* create a way for handling aggregators (contains list of posts)
+
+in progress:
+
+
+done:
