@@ -35,11 +35,10 @@ if ($usecase->getUserCanLogIn() == 1) {
 	$_SESSION['last_login']      = time();
 	
 	switch ($user->user_type) {
-	    case 1: header('Location: '.BASEPATH.'organization/dashboard/dashboard'); die(); break;
-	    case 2: header('Location: '.BASEPATH.'analyst/dashboard/dashboard'); die(); break;
+	    case 1: header('Location: '.BASEPATH.'aggregators/adm/index'); die(); break;
+	    case 2: header('Location: '.BASEPATH.'aggregators/rampagent/index'); die(); break;
 	}
 	
-	header('Location: '.BASEPATH.'organization/dashboard/dashboard'); 
 	die();
 } else {
 	header('Location: '.BASEPATH.'access/login?error=on');
