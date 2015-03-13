@@ -2,7 +2,7 @@
 
 define("APP_ROOT", "../");
 
-require_once APP_ROOT.'system/responders/publicresponder.php';
+require_once APP_ROOT.'core/responders/publicresponder.php';
 
 class Responder extends PublicResponder {
 	
