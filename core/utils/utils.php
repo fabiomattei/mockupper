@@ -46,6 +46,25 @@ function aggregator( $family, $subfamily, $aggregator) {
 	}
 }
 
+function spliturl($request) {
+	#split the path by '/'
+	$params = preg_split( '/\//', $request );
+
+	//echo $_SERVER['REQUEST_URI'].'<br>';
+	//print_r($params);
+
+	$family = $params[0];
+	$subfamily = '';
+	if ( strpos( $family, '-' ) !== FALSE ) {
+		$newfamily = preg_split( '/-/', $family );
+		$family    = $newfamily[0];
+		$subfamily = $newfamily[1];
+	}
+	$aggregator = $params[1];
+	
+	return array( $family, $subfamily, $aggregator );
+}
+
 // fuctions that symplifies the selected property in a form
 function selected( $variable, $term ) {
 	if ( $variable == $term ) return 'selected="selected"';

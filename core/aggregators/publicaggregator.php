@@ -52,6 +52,9 @@ class PublicAggregator {
 		} else {
 			$this->postRequest();
 		}
+		
+		$this->loadTemplate();
+		
 		$time_end = microtime(true);
 		if (($time_end - $time_start) > 5) {
 			$logger = new Logger();
@@ -103,10 +106,6 @@ class PublicAggregator {
 				$this->addToFoot .= $container->addToFoot();
 			}
 		}
-	}
-	
-	public function compose() {
-		$this->loadTemplate();
 	}
 	
 }

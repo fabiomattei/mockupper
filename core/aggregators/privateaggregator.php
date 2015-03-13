@@ -143,8 +143,4 @@ class PrivateAggregator {
 		}
 	}
 	
-	public function compose() {
-		$this->loadTemplate();
-	}
-	
 }

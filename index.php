@@ -6,23 +6,13 @@ require_once 'settings.php';
 $request1 = str_replace('/mockupper/', '', $_SERVER['REQUEST_URI']);
 $request = str_replace('.html', '', $request1);
 
-#split the path by '/'
-$params = preg_split( '/\//', $request );
+if ( strlen( $request ) > 0 ) {
+	list( $family, $subfamily, $aggregator ) = spliturl( $request );
 
-//echo $_SERVER['REQUEST_URI'].'<br>';
-//print_r($params);
-
-$family = $params[0];
-$subfamily = '';
-if ( strpos( $family, '-' ) !== FALSE ) {
-	$newfamily = preg_split( '/-/', $family );
-	$family    = $newfamily[0];
-	$subfamily = $newfamily[1];
+	aggregator( $family, $subfamily, $aggregator );
+} else {
+	aggregator( 'public', '', 'index' );
 }
-$aggregator = $params[1];
-
-aggregator( $family, $subfamily, $aggregator );
 
 $aggregator = new Aggregator();
-$aggregator->compose();
 $aggregator->showPage();
