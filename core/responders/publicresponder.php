@@ -74,4 +74,5 @@ class PublicResponder {
 	function setWarning($warning) {
 		$this->messages->setWarning($warning);
 	}
+	
 }
