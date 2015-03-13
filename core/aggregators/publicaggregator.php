@@ -17,7 +17,10 @@ class PublicAggregator {
 		$this->secondcentralcontainer = array();
 		$this->thirdcentralcontainer  = array();
 		$this->bottomcontainer        = array();
-		$this->templateFile           = 'private';
+		$this->templateFile           = 'application';
+		
+		$this->addToHead = '';
+		$this->addToFoot = '';
 	}
 	
 	public function isGetRequest() {
@@ -71,6 +74,39 @@ class PublicAggregator {
 	
 	function setWarning($warning) {
 		$this->messages->setWarning($warning);
+	}
+	
+	// taken from page script
+	function loadTemplate() {
+		$this->addToHeadAndToFoot($this->menucontainer);
+		$this->addToHeadAndToFoot($this->topcontainer);
+		$this->addToHeadAndToFoot($this->messagescontainer);
+		$this->addToHeadAndToFoot($this->leftcontainer);
+		$this->addToHeadAndToFoot($this->centralcontainer);
+		$this->addToHeadAndToFoot($this->secondcentralcontainer);
+		$this->addToHeadAndToFoot($this->thirdcentralcontainer);
+		$this->addToHeadAndToFoot($this->bottomcontainer);
+		
+		require_once 'templates/'.$this->templateFile.'.php';
+	}
+
+	function addToHeadAndToFoot($container) {
+		if (isset($container)) {
+			if (gettype($container) == 'array') {
+				foreach ($container as $obj) {
+					$this->addToHead .= $obj->addToHead();
+					$this->addToFoot .= $obj->addToFoot();
+				}
+			}
+			if (gettype($container) == 'object') {
+				$this->addToHead .= $container->addToHead();
+				$this->addToFoot .= $container->addToFoot();
+			}
+		}
+	}
+	
+	public function compose() {
+		$this->loadTemplate();
 	}
 	
 }

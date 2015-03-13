@@ -42,7 +42,7 @@ function aggregator( $family, $subfamily, $aggregator) {
 		require_once $filepath;
 	} else {
 		$logger = new Logger();
-		$logger->write('ERROR: file dose not exists: '.$filepath, __FILE__, __LINE__);
+		$logger->write( 'ERROR: -aggregator- file dose not exists: '.$filepath );
 	}
 }
 
