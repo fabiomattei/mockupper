@@ -1,6 +1,5 @@
 <?php
 
-require_once 'core/logger/logger.php';
 require_once 'core/database/basicdao.php';
 
 class UserDao extends BasicDao {
