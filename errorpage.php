@@ -3,7 +3,7 @@
 define("APP_ROOT", '');
 require_once APP_ROOT.'system/responders/publicresponder.php';
 
-class Responder extends PublicResponder {
+class Aggregator extends PublicResponder {
 	
 	public function getRequest() {
 		page('commons/errorloader');
@@ -15,5 +15,5 @@ class Responder extends PublicResponder {
 	
 }
 
-$responder = new Responder();
-$responder->showPage();
+$aggregator = new Aggregator();
+$aggregator->showPage();

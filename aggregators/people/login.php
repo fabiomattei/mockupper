@@ -2,9 +2,9 @@
 
 define("APP_ROOT", "../");
 
-require_once APP_ROOT.'core/responders/publicresponder.php';
+require_once APP_ROOT.'core/aggregators/publicaggregator.php';
 
-class Responder extends PublicResponder {
+class Aggregator extends PublicAggregator {
 	
 	public function getRequest() {
 		page('public/loginformpg');
@@ -62,5 +62,5 @@ class Responder extends PublicResponder {
 	
 }
 
-$responder = new Responder();
-$responder->showPage();
+$aggregator = new Aggregator();
+$aggregator->showPage();

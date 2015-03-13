@@ -2,9 +2,9 @@
 
 define("APP_ROOT", "../");
 
-require_once APP_ROOT.'core/responders/publicresponder.php';
+require_once APP_ROOT.'core/aggregators/publicaggregator.php';
 
-class Responder extends PublicResponder {
+class Aggregator extends PublicAggregator {
 	
 	public function getRequest() {
 		$this->killSession();

@@ -2,9 +2,9 @@
 
 define("APP_ROOT", "../../");
 
-require_once APP_ROOT.'system/responders/privateresponder.php';
+require_once APP_ROOT.'core/aggregators/privateaggregator.php';
 
-class Responder extends PrivateResponder {
+class Aggregator extends PrivateAggregator {
 	
     public function __construct() {
           parent::__construct();
@@ -59,5 +59,5 @@ class Responder extends PrivateResponder {
 	
 }
 
-$responder = new Responder();
-$responder->showPage();
+$aggregator = new Aggregator();
+$aggregator->showPage();
