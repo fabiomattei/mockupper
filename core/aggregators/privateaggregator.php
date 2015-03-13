@@ -1,15 +1,12 @@
 <?php
 
-require_once "settings.php";
-require_once "system/logger/logger.php";
-
 class PrivateAggregator {
 	
 	public function __construct() {
 	    session_start();
 		
 		// messages block loaded by default from all pages
-		block('html/messages');
+		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
 		
 		$this->title                  = "SAT :: Dashboard";

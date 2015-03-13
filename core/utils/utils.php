@@ -33,7 +33,11 @@ function lib($path) {
 }
 
 function aggregator( $family, $subfamily, $aggregator) {
-	$filepath = 'aggregators/'.$family.'/'.$subfamily.'/'.$aggregator.'.php';
+	if ( $subfamily != '' ) {
+		$filepath = 'aggregators/'.$family.'/'.$subfamily.'/'.$aggregator.'.php';
+	} else {
+		$filepath = 'aggregators/'.$family.'/'.$aggregator.'.php';
+	}
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
 	} else {

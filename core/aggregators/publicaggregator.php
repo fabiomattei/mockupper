@@ -1,13 +1,11 @@
 <?php
 
-require_once "settings.php";
-
 class PublicAggregator {
 	
 	public function __construct() {
 		
 		// messages block loaded by default from all pages
-		block('html/messages');
+		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
 		
 		$this->title                  = "SAT :: Dashboard";
