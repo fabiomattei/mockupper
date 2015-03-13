@@ -10,10 +10,11 @@
 
 if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'],'Google App Engine') !== false) {
 	// loading pruduction settings
-	require_once APP_ROOT.'environments/production.php';
+	require_once 'environments/production.php';
 } else {
 	// loading developement settings
-	require_once APP_ROOT.'environments/development.php';
+	require_once 'environments/development.php';
 }
 
-require_once APP_ROOT.'system/utils.php';
+require_once 'core/utils/utils.php';
+require_once 'core/logger/logger.php';

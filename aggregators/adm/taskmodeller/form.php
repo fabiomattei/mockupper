@@ -1,8 +1,6 @@
 <?php
 
-define("APP_ROOT", "../../");
-
-require_once APP_ROOT.'core/aggregators/privateaggregator.php';
+require_once 'core/aggregators/privateaggregator.php';
 
 class Aggregator extends PrivateAggregator {
 	

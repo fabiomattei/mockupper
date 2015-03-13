@@ -1,7 +1,7 @@
 <?php
 
-require_once APP_ROOT.'core/logger/logger.php';
-require_once APP_ROOT.'core/database/basicdao.php';
+require_once 'core/logger/logger.php';
+require_once 'core/database/basicdao.php';
 
 class UserDao extends BasicDao {
 	

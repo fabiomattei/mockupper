@@ -1,7 +1,7 @@
 <?php
 
 if (version_compare(phpversion(), '5.5', '<')) {
-    require_once APP_ROOT.'system/libs/password/password.php';
+    require_once 'system/libs/password/password.php';
 }
 
 class UserHashPassword {

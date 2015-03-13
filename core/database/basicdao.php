@@ -220,7 +220,7 @@ class BasicDao {
 	}
 	
 	public function putCache($query, $key, $stuff) {
-		$dirname = APP_ROOT.'cache/'.$query;
+		$dirname = 'cache/'.$query;
 		if (!file_exists($dirname)) {
 			mkdir($dirname, 0777, true);
 		}
@@ -229,7 +229,7 @@ class BasicDao {
 	}
 	
 	public function getCache($query, $key) {
-		$filename = APP_ROOT.'cache/'.$query.'/'.$key.'.data';
+		$filename = 'cache/'.$query.'/'.$key.'.data';
 		$cached = NULL;
 		if (file_exists($filename) AND (time()-filemtime($filename) < 2 * 3600)) { // 2 h
 			$cached = unserialize(file_get_contents($filename));

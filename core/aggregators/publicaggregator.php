@@ -1,6 +1,6 @@
 <?php
 
-require_once APP_ROOT."settings.php";
+require_once "settings.php";
 
 class PublicAggregator {
 	

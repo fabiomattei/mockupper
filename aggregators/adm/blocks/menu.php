@@ -1,6 +1,6 @@
 <?php
 
-require_once APP_ROOT."presentation/blocks/baseblock/baseblock.php";
+require_once "presentation/blocks/baseblock/baseblock.php";
 
 class AnMenu extends BaseBlock {
 	

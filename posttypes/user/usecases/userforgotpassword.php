@@ -1,6 +1,6 @@
 <?php
 
-require_once APP_ROOT.'system/libs/gump/gump.class.php';
+require_once 'system/libs/gump/gump.class.php';
 
 class UserForgotPassword {
 

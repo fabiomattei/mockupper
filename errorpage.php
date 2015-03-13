@@ -1,7 +1,7 @@
 <?php
 
 define("APP_ROOT", '');
-require_once APP_ROOT.'system/responders/publicresponder.php';
+require_once 'system/responders/publicresponder.php';
 
 class Aggregator extends PublicResponder {
 	
