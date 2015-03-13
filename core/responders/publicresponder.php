@@ -4,6 +4,18 @@ require_once APP_ROOT."settings.php";
 
 class PublicResponder {
 	
+	public function __construct() {
+		$this->title                  = "SAT :: Dashboard";
+		$this->menucontainer          = array();
+		$this->topcontainer           = array();
+		$this->leftcontainer          = array();
+		$this->centralcontainer       = array();
+		$this->secondcentralcontainer = array();
+		$this->thirdcentralcontainer  = array();
+		$this->bottomcontainer        = array();
+		$this->templateFile           = 'private';
+	}
+	
 	public function isGetRequest() {
 		return $_SERVER["REQUEST_METHOD"] == "GET";
 	}

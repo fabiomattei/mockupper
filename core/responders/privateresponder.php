@@ -7,6 +7,22 @@ class PrivateResponder {
 	
 	public function __construct() {
 	    session_start();
+		
+		// messages block loaded by default from all pages
+		block('html/messages');
+		$this->messages = new Messages();
+		
+		$this->title                  = "SAT :: Dashboard";
+		$this->menucontainer          = array();
+		$this->topcontainer           = array();
+		$this->messagescontainer      = array( $this->messages );
+		$this->leftcontainer          = array();
+		$this->centralcontainer       = array();
+		$this->secondcentralcontainer = array();
+		$this->thirdcentralcontainer  = array();
+		$this->bottomcontainer        = array();
+		$this->templateFile           = 'private';
+		
 		if (!$this->isSessionValid()) {
 			header('Location: '.BASEPATH.'index');
 			die();
@@ -83,4 +99,22 @@ class PrivateResponder {
 
 		return true;
 	}
+	
+	// ** next section load textual messages for messages block
+	function setSuccess($success) {
+		$this->messages->setSuccess($success);
+	}
+	
+	function setError($error) {
+		$this->messages->setError($error);
+	}
+	
+	function setInfo($info) {
+		$this->messages->setInfo($info);
+	}
+	
+	function setWarning($warning) {
+		$this->messages->setWarning($warning);
+	}
+	
 }
