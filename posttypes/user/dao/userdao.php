@@ -1,37 +1,48 @@
 <?php
 
-require_once 'core/database/basicdao.php';
+require_once APP_ROOT."system/logger/logger.php";
 
-class UserDao extends BasicDao {
+class UserDao {
 	
-	const DB_TABLE = 'users';
-	const DB_TABLE_PK = 'user_id';
-    const DB_TABLE_UPDATED_FIELD_NAME = 'user_updated';
-    const DB_TABLE_CREATED_FLIED_NAME = 'user_created';
+	function __construct($setting='') {
+		if ($setting != 'test') { // I check that in order to avoid initialization during testing
+			try {      
+				$this->DBH = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSERNAME, DBPASSWORD);
+				$this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			}
+			catch(PDOException $e) {
+				$logger = new Logger();
+				$logger->write($e->getMessage(), __FILE__, __LINE__);
+				throw new GeneralException('General malfuction!!!');
+			}
+		}
+	}
 	
-	/* Field list
-		user_id;
-    	user_or_id;           // foreign key to organizations->or_id
-		user_administrator;   // 0 user, 1 administrator
-    	user_type;            // 0 viewer, 1 organization member, 2 analyst
-		user_name;
-		user_surname;
-    	user_email;
-		user_activated;       // 0 not activated, 1 activated
-		user_organization;    // written during signup process, after that has not been used anywhere
-    	user_salt;
-    	user_hashedpsw;
-    	user_updated;
-    	user_created;
-    	user_password_updated;
-	 */
+	/**
+	* Setter made for testing purpose
+	*/
+	public function setPDO($PDO) {
+		$this->DBH = $PDO;
+	}
 	
-	
-	function checkEmailAndPassword($email, $password) {
+	function getAll() {
 		try {
-			$STH = $this->DBH->prepare('SELECT COUNT(*) as numberrows FROM users WHERE user_email = :email AND user_hashedpsw = :user_hashedpsw AND user_activated = 1; ');
-			$STH->bindParam(':email', $email, PDO::PARAM_STR);
-			$STH->bindParam(':user_hashedpsw', $password, PDO::PARAM_STR);
+			$STH = $this->DBH->query('SELECT id, name from users');
+			$STH->setFetchMode(PDO::FETCH_OBJ);
+ 	   
+			return $STH;
+		}
+		catch(PDOException $e) {
+			$logger = new Logger();
+			$logger->write($e->getMessage(), __FILE__, __LINE__);
+		}
+	}
+	
+	function checkUsernameAndPassword($name, $password) {
+		try {
+			$STH = $this->DBH->prepare('SELECT COUNT(*) as numberrows FROM users WHERE name = :name AND password = :password');
+			$STH->bindParam(':name', $name, PDO::PARAM_STR);
+			$STH->bindParam(':password', $password, PDO::PARAM_STR);
 			$STH->execute();
 			return $STH->fetchColumn();
 		}
@@ -41,10 +52,10 @@ class UserDao extends BasicDao {
 		}
 	}
 	
-	public function getSaltForEmail($email) {
+	public function getSaltForUsername($name) {
 		try {
-			$STH = $this->DBH->prepare('SELECT user_salt from users where user_email = :email');
-			$STH->bindParam(':email', $email, PDO::PARAM_STR);
+			$STH = $this->DBH->prepare('SELECT salt from users where name = :name');
+			$STH->bindParam(':name', $name, PDO::PARAM_STR);
 			$STH->execute();
 			return $STH->fetchColumn();
 		}
@@ -53,27 +64,4 @@ class UserDao extends BasicDao {
 			$logger->write($e->getMessage(), __FILE__, __LINE__);
 		}
 	}
-	
-	// ****************
-	// Static section
-	// ****************
-	
-	public static function hashpassword($password, $salt) {
-        return SHA1($password.'ABrew456Aqc'.$salt);
-    }
-	
-	public static function generatePassword($length = 8) {
-        $password = "";
-        $possible = "0123456789abcdfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        $i = 0;
-        while ($i < $length) {
-            $char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
-            if (!strstr($password, $char)) {
-                $password .= $char;
-                $i++;
-            }
-        }
-        return $password;
-    }
 }
