@@ -13,7 +13,7 @@ class BasicDao {
 	function __construct($setting='') {
 		if ($setting != 'test') { // I check that in order to avoid initialization during testing
 			try {      
-				$this->DBH = new PDO(DBHOST.DBNAME, DBUSERNAME, DBPASSWORD);
+				$this->DBH = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSERNAME, DBPASSWORD);
 				$this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
 			catch(PDOException $e) {

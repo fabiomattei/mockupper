@@ -1,6 +1,6 @@
 <?php
 
-require_once "presentation/blocks/baseblock/baseblock.php";
+require_once "core/blocks/baseblock.php";
 
 class RowContainer extends BaseBlock {
 	

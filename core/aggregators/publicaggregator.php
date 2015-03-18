@@ -4,11 +4,14 @@ class PublicAggregator {
 	
 	public function __construct() {
 		
+		// setting an array containing all parameters
+		$this->parameters = array();
+		
 		// messages block loaded by default from all pages
 		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
 		
-		$this->title                  = "SAT :: Dashboard";
+		$this->title                  = 'Prenotiamoci';
 		$this->menucontainer          = array();
 		$this->topcontainer           = array();
 		$this->messagescontainer      = array( $this->messages );
@@ -77,6 +80,13 @@ class PublicAggregator {
 	
 	function setWarning($warning) {
 		$this->messages->setWarning($warning);
+	}
+	
+	/* ** functions for setting parameters array */
+	public function setParameters( $parameters ) {
+		if (is_array( $parameters )) {
+			$this->parameters = $parameters;
+		}
 	}
 	
 	// taken from page script

@@ -5,6 +5,9 @@ class PrivateAggregator {
 	public function __construct() {
 	    session_start();
 		
+		// setting an array containing all parameters
+		$this->parameters = array();
+		
 		// messages block loaded by default from all pages
 		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
@@ -112,6 +115,13 @@ class PrivateAggregator {
 	
 	function setWarning($warning) {
 		$this->messages->setWarning($warning);
+	}
+	
+	/* ** functions for setting parameters array */
+	public function setParameters( $parameters ) {
+		if (is_array( $parameters )) {
+			$this->parameters = $parameters;
+		}
 	}
 	
 	// taken from page script
