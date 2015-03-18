@@ -1,5 +1,7 @@
 <?php
 
+require_once "core/database/basicdao.php";
+
 class TodoDao {
 	
 	function __construct($setting='') {

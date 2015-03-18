@@ -1,6 +1,6 @@
 <?php
 
-require_once APP_ROOT."system/logger/logger.php";
+require_once "core/database/basicdao.php";
 
 class UserDao {
 	

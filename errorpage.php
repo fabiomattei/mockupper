@@ -1,19 +1,8 @@
 <?php
 
-define("APP_ROOT", '');
-require_once 'system/responders/publicresponder.php';
+require_once 'settings.php';
 
-class Aggregator extends PublicResponder {
-	
-	public function getRequest() {
-		page('commons/errorloader');
-
-		$loader = new ErrorLoader();
-		$loader->loadBlocks();
-		$loader->loadTemplate();
-	}
-	
-}
+aggregator( 'public', '', 'errorpage' );
 
 $aggregator = new Aggregator();
 $aggregator->showPage();
