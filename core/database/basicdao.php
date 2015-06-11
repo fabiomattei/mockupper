@@ -12,8 +12,8 @@ class BasicDao {
 	
 	function __construct($setting='') {
 		if ($setting != 'test') { // I check that in order to avoid initialization during testing
-			try {      
-				$this->DBH = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSERNAME, DBPASSWORD);
+			try {
+				$this->DBH = new PDO(DBHOST.DBNAME, DBUSERNAME, DBPASSWORD);
 				$this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
 			catch(PDOException $e) {
@@ -148,13 +148,38 @@ class BasicDao {
 		}
 	}
 	
-	public function getByFields($conditionsfields, $requestedfields = 'none') {
+	/**
+	 * This is the basic function for getting a set of elements from a table.
+	 * Once you created a instance of the DAO object you can do for example:
+	 *
+	 * $tododao->getByFields( array( 'open' => '0' ) );
+	 * this will get all the row having the field open = 0
+	 *
+	 * you can set more then a search parameter (evaluated in AND)
+	 * $tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
+	 *
+	 * you can even specify how to order the rows you requested
+	 * $tododao->getByFields( array( 'id' => '42' ), array('name', 'description') );
+	 *
+	 * you can even request few specific fields and not the whole table fields
+	 * $tododao->getByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
+	 */	
+	public function getByFields( $conditionsfields, $orderby = 'none', $requestedfields = 'none' ) {
 		$filedslist = $this->organizeConditionsFields($conditionsfields);
 		
 		$requestedfieldlist = $this->organizeRequestedFields($requestedfields);
 		
+		$orderbyfieldlist = $this->organizeOrderByFields($orderby);
+		
 		try {
-			$STH = $this->DBH->prepare('SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' WHERE '.$filedslist);
+			// building the query
+			$query = 'SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' ';
+			if ( $filedslist != '' ) {
+				$query .= 'WHERE '.$filedslist.' ';
+			}
+			$query .= $orderbyfieldlist;
+
+			$STH = $this->DBH->prepare( $query );
 			foreach ($conditionsfields as $key => &$value) {
 				$STH->bindParam($key, $value);
 			}
@@ -172,13 +197,75 @@ class BasicDao {
 		}
 	}
 	
+	public function getByFieldList( $fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none' ) {
+		$ids_string = ' (';
+		foreach ($ids as $id) {
+			$ids_string .= $id.', ';
+		}
+		$ids_string = substr( $ids_string, 0, -2 ); // cutting out last two caracters
+		$ids_string .= ') ';
+		
+		$filedslist = $this->organizeConditionsFields($conditionsfields);
+		
+		$requestedfieldlist = $this->organizeRequestedFields($requestedfields);
+		
+		$orderbyfieldlist = $this->organizeOrderByFields($orderby);
+		
+		try {
+			// building the query
+			$query = 'SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' ';
+			$query .= 'WHERE '.$fieldname.' IN '.$ids_string.' ';
+			if ( $filedslist != '' ) {
+				$query .= 'AND '.$filedslist;
+			}
+			$query .= $orderbyfieldlist;
+
+			$STH = $this->DBH->prepare( $query );
+			
+			foreach ($conditionsfields as $key => &$value) {
+				$STH->bindParam($key, $value);
+			}
+			
+			$STH->execute();
+		
+			# setting the fetch mode
+			$STH->setFetchMode(PDO::FETCH_OBJ);
+ 	   
+			return $STH;
+		}
+		catch(PDOException $e) {
+			$logger = new Logger();
+			$logger->write($e->getMessage(), __FILE__, __LINE__);
+			throw new GeneralException('General malfuction!!!');
+		}
+	}
+	
+	/**
+	 * This is the basic function for getting one element from a table.
+	 * Once you created a instance of the DAO object you can do for example:
+	 *
+	 * $tododao->getOneByFields( array( 'id' => '42' ) );
+	 * this will get the field having id = 42
+	 *
+	 * you can set more then a search parameter (evaluated in AND)
+	 * $tododao->getOneByFields( array( 'id' => '42', 'open' => '1' ) );
+	 *
+	 * you can even request few specific fields and not the whole table fields
+	 * $tododao->getOneByFields( array( 'id' => '42' ), array('id', 'name', 'description') );
+	 */
 	public function getOneByFields($conditionsfields, $requestedfields = 'none') {
 		$filedslist = $this->organizeConditionsFields($conditionsfields);
 		
 		$requestedfieldlist = $this->organizeRequestedFields($requestedfields);
 		
 		try {
-			$STH = $this->DBH->prepare('SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' WHERE '.$filedslist);
+			// building the query
+			$query = 'SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' ';
+			if ( $filedslist != '' ) {
+				$query .= 'WHERE '.$filedslist;
+			}
+			
+			$STH = $this->DBH->prepare( $query );
 			foreach ($conditionsfields as $key => &$value) {
 				$STH->bindParam($key, $value);
 			}
@@ -187,6 +274,10 @@ class BasicDao {
 			# setting the fetch mode
 			$STH->setFetchMode(PDO::FETCH_OBJ);
 			$obj = $STH->fetch();
+			
+			if ( $obj == null ) {
+				$obj = $this->getEmpty();
+			}
  	   
 			return $obj;
 		}
@@ -195,6 +286,10 @@ class BasicDao {
 			$logger->write($e->getMessage(), __FILE__, __LINE__);
 			throw new GeneralException('General malfuction!!!');
 		}
+	}
+	
+	public function getEmpty() {
+		return null;
 	}
 	
 	public function organizeConditionsFields($conditionsfields) {
@@ -217,6 +312,19 @@ class BasicDao {
 			$requestedfieldlist = '*';
 		}
 		return $requestedfieldlist;
+	}
+	
+	public function organizeOrderByFields($orderby) {
+		if ( is_array( $orderby ) ) {
+			$orderbyfields = ' ORDER BY ';
+			foreach ($orderby as $value) {
+				$orderbyfields .= $value.', ';
+			}
+			$orderbyfields = substr($orderbyfields, 0, -2);
+		} else {
+			$orderbyfields = '';
+		}
+		return $orderbyfields;
 	}
 	
 	public function putCache($query, $key, $stuff) {

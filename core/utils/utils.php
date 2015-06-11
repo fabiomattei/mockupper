@@ -20,7 +20,7 @@ function usecase( $type, $path ) {
 	    require_once $filepath;
 	} else {
 		$logger = new Logger();
-		$logger->write( 'ERROR: -library- file dose not exists: '.$filepath );
+		$logger->write( 'ERROR: -usecase- file dose not exists: '.$filepath );
 	}
 }
 
@@ -34,6 +34,46 @@ function dao( $type, $path ) {
 	}
 }
 
+function helper( $type, $path ) {
+	$filepath = 'posttypes/'.$type.'/helpers/'.$path.'.php';
+	if ( file_exists( $filepath ) ) {
+	    require_once $filepath;
+	} else {
+		$logger = new Logger();
+		$logger->write( 'ERROR: -helper- file dose not exists: '.$filepath );
+	}
+}
+
+function partial( $type, $path ) {
+	$filepath = 'posttypes/'.$type.'/partial/'.$path.'.php';
+	if ( file_exists( $filepath ) ) {
+	    require_once $filepath;
+	} else {
+		$logger = new Logger();
+		$logger->write( 'ERROR: -partial- file dose not exists: '.$filepath );
+	}
+}
+
+function importer( $type, $path ) {
+	$filepath = 'posttypes/'.$type.'/importers/'.$path.'.php';
+	if ( file_exists( $filepath ) ) {
+	    require_once $filepath;
+	} else {
+		$logger = new Logger();
+		$logger->write( 'ERROR: -importer- file dose not exists: '.$filepath );
+	}
+}
+
+function exporter( $type, $path ) {
+	$filepath = 'posttypes/'.$type.'/exporters/'.$path.'.php';
+	if ( file_exists( $filepath ) ) {
+	    require_once $filepath;
+	} else {
+		$logger = new Logger();
+		$logger->write( 'ERROR: -exporters- file dose not exists: '.$filepath );
+	}
+}
+
 function lib( $path ) {
 	$filepath = 'core/libs/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -44,7 +84,7 @@ function lib( $path ) {
 	}
 }
 
-function aggregator( $family, $subfamily, $aggregator) {
+function aggregator( $family, $subfamily, $aggregator ) {
 	if ( $subfamily == '' ) {
 		$filepath = 'aggregators/'.$family.'/'.$aggregator.'.php';
 	} else {
@@ -124,6 +164,18 @@ function url_title($str, $separator = '-', $lowercase = TRUE) {
 
 // functions per immagini
 
+function generate_user_img_url($user_id, $user_filename) {
+	$user_file_url = BASEPATH.'uploads/clients/group1/client'.$user_id;
+	$user_file_path = realpath('uploads/clients/group1/client'.$user_id);
+		
+	if($user_filename != '' && file_exists($user_file_path) && file_exists($user_file_path.'/'.$user_filename)) {
+		$out = $user_file_url.'/'.$user_filename;
+	} else {
+		$out = BASEPATH.'assets/images/avatar_default.jpg'; 
+	}
+    return $out;
+}
+
 function get_activity_img_path($acfoldername, $prid) {
     return 'uploads/activities/group1/'.$acfoldername.'/main/';
 }
@@ -156,12 +208,75 @@ function selected( $variable, $term ) {
 	return '';
 }
 
+// fuctions that symplifies the selected property in a form
+function checked_if_contains( $variable, $term ) {
+	if ( strpos( $variable, $term ) !== false ) {
+	    return 'checked="checked"';
+	}
+	return '';
+}
+
+// fuctions that symplifies the selected property in a form
+function jsselected( $variable, $term ) {
+	if ( $variable == $term ) return 'selected=\"selected\"';
+	return '';
+}
+
+// fuctions that symplifies the selected property in a form
+function checked( $variable, $term ) {
+	if ( $variable == $term ) return 'checked="checked"';
+	return '';
+}
+
+// fuctions that symplifies the selected property in a form
+function jschecked( $variable, $term ) {
+	if ( $variable == $term ) return 'checked=\"checked\"';
+	return '';
+}
+
+// Delete unwanted accents
+function clear_string( $str ) {
+    $count	= 1;
+    $out	= '';
+    $temp	= array();
+
+    for ($i = 0, $s = strlen($str); $i < $s; $i++) {
+ 	   $ordinal = ord($str[$i]);
+
+ 	   if ($ordinal < 128) {
+ 			if (count($temp) == 1) {
+ 				$out  .= '&#'.array_shift($temp).';';
+ 				$count = 1;
+ 			}
+
+ 			$out .= $str[$i];
+ 	   } else {
+ 		   if (count($temp) == 0) {
+ 			   $count = ($ordinal < 224) ? 2 : 3;
+ 		   }
+	
+ 		   $temp[] = $ordinal;
+	
+ 		   if (count($temp) == $count) {
+ 			   $number = ($count == 3) ? (($temp['0'] % 16) * 4096) + (($temp['1'] % 64) * 64) + ($temp['2'] % 64) : (($temp['0'] % 32) * 64) + ($temp['1'] % 64);
+
+ 			   $out .= '&#'.$number.';';
+ 			   $count = 1;
+ 			   $temp = array();
+ 		   }
+ 	   }
+    }
+
+    return $out;
+}
+
 // GeneralException
 class GeneralException extends Exception {
 }
 
 function generalExceptionHandler($exception) {
-	header('Location: '.BASEPATH.'errorpage');
+	// echo $exception;
+	header('Location: '.BASEPATH.'errorpage.html');
 	die();
 }
 

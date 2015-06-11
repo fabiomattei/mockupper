@@ -12,7 +12,7 @@ class PrivateAggregator {
 		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
 		
-		$this->title                  = "SAT :: Dashboard";
+		$this->title                  = 'Daily Journal :: Internal area';
 		$this->menucontainer          = array();
 		$this->topcontainer           = array();
 		$this->messagescontainer      = array( $this->messages );
@@ -21,10 +21,14 @@ class PrivateAggregator {
 		$this->secondcentralcontainer = array();
 		$this->thirdcentralcontainer  = array();
 		$this->bottomcontainer        = array();
+		$this->sidebarcontainer       = array();
 		$this->templateFile           = 'application';
 		
+		$this->addToHead = '';
+		$this->addToFoot = '';
+		
 		if (!$this->isSessionValid()) {
-			header('Location: '.BASEPATH.'index');
+			header('Location: '.BASEPATH.'public/login.html');
 			die();
 		}
 	}
@@ -58,6 +62,9 @@ class PrivateAggregator {
 		} else {
 			$this->postRequest();
 		}
+		
+		$this->loadTemplate();
+		
 		$time_end = microtime(true);
 		if (($time_end - $time_start) > 5) {
 			$logger = new Logger();

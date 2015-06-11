@@ -11,7 +11,7 @@ class PublicAggregator {
 		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
 		
-		$this->title                  = 'Prenotiamoci';
+		$this->title                  = 'Daily Journal';
 		$this->menucontainer          = array();
 		$this->topcontainer           = array();
 		$this->messagescontainer      = array( $this->messages );
