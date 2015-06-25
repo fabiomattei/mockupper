@@ -84,6 +84,16 @@ function lib( $path ) {
 	}
 }
 
+function utils( $path ) {
+	$filepath = 'core/utils/'.$path.'.php';
+	if ( file_exists( $filepath ) ) {
+		require_once $filepath;
+	} else {
+		$logger = new Logger();
+		$logger->write( 'ERROR: -utils- file dose not exists: '.$filepath );
+	}
+}
+
 function aggregator( $family, $subfamily, $aggregator ) {
 	if ( $subfamily == '' ) {
 		$filepath = 'aggregators/'.$family.'/'.$aggregator.'.php';
