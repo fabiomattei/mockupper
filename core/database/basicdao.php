@@ -115,6 +115,20 @@ class BasicDao {
 		}
 	}
 	
+	/**
+	 * This is the basic function for one row from a table specifying the primary key
+	 * of the row you want to delete.
+	 * Once you created a instance of the DAO object you can do for example:
+	 *
+	 * $tododao->delete( 15 );
+	 * this will delete the row having the primary key set to 15.
+	 * 
+	 * Remeber that you need to set the primary key in the tabledao.php file
+	 * in a costant named DB_TABLE_PK
+	 *
+	 * Example:
+	 * const DB_TABLE_PK = 'stp_id';
+	 */
 	function delete($id) {
 		try {
 			$STH = $this->DBH->prepare('DELETE FROM '.$this::DB_TABLE.' WHERE '.$this::DB_TABLE_PK.' = :id');
@@ -128,6 +142,19 @@ class BasicDao {
 		}
 	}
 	
+	/**
+	 * This function deletes a set of row from a table depending from the
+	 * parameters you set when calling it.
+	 *
+	 * $tododao->delete( array( 'open' => '0', 'handling' => '1' ) );
+	 * this will delete the row having the field open set to 0 and the field handling set to 1.
+	 * 
+	 * Remeber that you need to set the table name in the tabledao.php file
+	 * in a costant named DB_TABLE
+	 *
+	 * Example:
+	 * const DB_TABLE = 'mytablename';
+	 */
 	function deleteByFields($fields) {
 		$filedslist = '';
 		foreach ($fields as $key => $value) {
