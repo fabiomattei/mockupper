@@ -2,6 +2,9 @@ todo:
 
 * Add a posttype for options
 * Add a posttype and a core API for cron stuff
+* Modify the core in order to add user permissions system
+* Modify the core in order to add offices permissions system
+* aggingere nonce logic (functions library) for link and form
 
 in progress:
 
