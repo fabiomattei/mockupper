@@ -1,5 +1,7 @@
 todo:
 
+* Add a posttype for options
+* Add a posttype and a core API for cron stuff
 
 in progress:
 
