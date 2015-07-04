@@ -28,5 +28,13 @@ define('FAMILY',     'public');
 define('SUBFAMILY',  '');
 define('AGGREGATOR', 'index');
 
+/* 
+ * PREDIFINED TEMPLATES FILES
+ * PUBLICTEMPLATE: filename of public template contained in the "templates" folder without .php 
+ * PRIVATETEMPLATE:  filename of private template contained in the "templates" folder without .php 
+ */
+define('PUBLICTEMPLATE',  'public');
+define('PRIVATETEMPLATE', 'application');
+
 // TIMEZONE
 date_default_timezone_set('Europe/Rome');

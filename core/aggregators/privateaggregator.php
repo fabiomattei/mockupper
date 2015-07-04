@@ -22,7 +22,7 @@ class PrivateAggregator {
 		$this->thirdcentralcontainer  = array();
 		$this->bottomcontainer        = array();
 		$this->sidebarcontainer       = array();
-		$this->templateFile           = 'application';
+		$this->templateFile           = PRIVATETEMPLATE;
 		
 		$this->addToHead = '';
 		$this->addToFoot = '';
