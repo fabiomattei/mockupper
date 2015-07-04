@@ -5,12 +5,23 @@ ini_set('error_reporting', E_ALL);
 
 // database
 define('DBHOST', 'mysql:host=127.0.0.1:8889;dbname=');
-define('DBNAME', 'sat');
+define('DBNAME', 'todo');
 define('DBUSERNAME', 'root');
 define('DBPASSWORD', 'root');
 
-// APPLICATION BASE PATH
-define('BASEPATH', 'http://127.0.0.1:8080/');
+/* APPLICATION BASE PATH
+ * basically it is the base URL where the web application is installed
+ */
+define('BASEPATH', 'http://localhost:8888/mockupper/');
+
+/* 
+ * PREDIFINED LOCATOR
+ * here you can set the file open by default when a general user is visiting the 
+ * base URL of the system
+ */
+define('FAMILY',     'public');
+define('SUBFAMILY',  '');
+define('AGGREGATOR', 'index');
 
 // TIMEZONE
 date_default_timezone_set('Europe/Rome');

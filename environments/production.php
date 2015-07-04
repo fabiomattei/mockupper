@@ -11,8 +11,19 @@ define('DBNAME', '');
 define('DBUSERNAME', 'root');
 define('DBPASSWORD', '');
 
-// APPLICATION BASE PATH
+/* APPLICATION BASE PATH
+ * basically it is the base URL where the web application is installed
+ */
 define('BASEPATH', 'http://toscasat.appspot.com/');
+
+/* 
+ * PREDIFINED LOCATOR
+ * here you can set the file open by default when a general user is visiting the 
+ * base URL of the system
+ */
+define('FAMILY',     'public');
+define('SUBFAMILY',  '');
+define('AGGREGATOR', 'index');
 
 // TIMEZONE
 date_default_timezone_set('Europe/Rome');
