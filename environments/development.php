@@ -9,10 +9,12 @@ define('DBNAME', 'todo');
 define('DBUSERNAME', 'root');
 define('DBPASSWORD', 'root');
 
-/* APPLICATION BASE PATH
- * basically it is the base URL where the web application is installed
+/* 
+ * APPLICATION BASE PATH
+ * BASEPATH: the base URL where the web application is installed
+ * PATHTOAPP: it is the eventual subfolder where the application is installed
  */
-define('BASEPATH',  'http://localhost:8888/');
+define('BASEPATH',  'http://localhost:8888/mockupper/');
 define('PATHTOAPP', '/mockupper/');
 
 /* 

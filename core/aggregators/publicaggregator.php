@@ -20,7 +20,7 @@ class PublicAggregator {
 		$this->secondcentralcontainer = array();
 		$this->thirdcentralcontainer  = array();
 		$this->bottomcontainer        = array();
-		$this->templateFile           = 'application';
+		$this->templateFile           = 'public';
 		
 		$this->addToHead = '';
 		$this->addToFoot = '';

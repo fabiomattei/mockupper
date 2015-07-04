@@ -32,18 +32,6 @@
 			} ?>
   		</div>
   		<div id="centralcolumn">
-			<?php 
-			if (isset($this->messagescontainer)) {
-				if (is_array($this->messagescontainer)) {
-					foreach ($this->messagescontainer as $bl) {
-						echo $bl->show();
-					}
-				} else {
-					echo $this->messagescontainer->show();
-				}
-			} ?>
-			
-			
 			<?PHP 
 			if (isset($this->centralcontainer)) {
 				if (is_array($this->centralcontainer)) {
