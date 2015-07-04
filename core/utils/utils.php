@@ -108,11 +108,11 @@ function aggregator( $family, $subfamily, $aggregator ) {
 	}
 }
 
-function spliturl($request) {
+function spliturl( $request ) {
 	#split the path by '/'
 	$params = explode( '/', $request );
 
-	//echo $_SERVER['REQUEST_URI'].'<br>';
+	//echo $_SERVER['REQUEST_URI'].'<br>'.$request;
 	//print_r($params);
 
 	$family = $params[0];

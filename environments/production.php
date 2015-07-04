@@ -14,7 +14,8 @@ define('DBPASSWORD', '');
 /* APPLICATION BASE PATH
  * basically it is the base URL where the web application is installed
  */
-define('BASEPATH', 'http://toscasat.appspot.com/');
+define('BASEPATH', 'http://example.com/');
+define('PATHTOAPP', '/mockupper/');
 
 /* 
  * PREDIFINED LOCATOR
