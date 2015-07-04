@@ -20,7 +20,7 @@ if ( strlen( $request ) > 0 ) {
 
 	aggregator( $family, $subfamily, $aggregator );
 } else {
-	// predifined locator set in the environment file
+	// redirecting to default aggregator set in the environment file
 	aggregator( FAMILY, SUBFAMILY, AGGREGATOR );
 }
 

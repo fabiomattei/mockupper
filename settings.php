@@ -16,5 +16,6 @@ if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'],'Go
 	require_once 'environments/development.php';
 }
 
+require_once 'core/utils/loaders.php';
 require_once 'core/utils/utils.php';
 require_once 'core/logger/logger.php';
