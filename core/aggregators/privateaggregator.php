@@ -12,7 +12,7 @@ class PrivateAggregator {
 		block( 'core', 'message/messages' );
 		$this->messages = new Messages();
 		
-		$this->title                  = 'Daily Journal :: Internal area';
+		$this->title                  = 'Mockupper :: Internal area';
 		$this->menucontainer          = array();
 		$this->topcontainer           = array();
 		$this->messagescontainer      = array( $this->messages );
