@@ -1,7 +1,7 @@
 <html>
 	<head>
 	<title><?PHP echo isset($this->title) ? $this->title : '' ?></title>
-	<link rel="stylesheet" type="text/css" href="<?PHP echo BASEPATH ?>assets/css/base.css">
+	<link rel="stylesheet" type="text/css" href="<?PHP echo BASEPATH ?>assets/css/style.css">
 	<?PHP echo isset($this->addToHead) ? $this->addToHead : '' ?>
 	</head>
 	<body>
