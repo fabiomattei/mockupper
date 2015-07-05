@@ -5,7 +5,7 @@
  * to load the files that composes the pages
  * ============================================================== */
 
-/* 
+/*
  * Load a block file.
  * It starts checking the "core/blocks" folder in order to check that the passed
  * name matches a core block file name.
@@ -27,6 +27,12 @@ function block( $type, $path ) {
 	}
 }
 
+/*
+ * Load an usecase file.
+ * Usecase are associated to a posttype, in effect they all are contained
+ * in a folder named "usecases" inside the postype folder.
+ * If the usecase file is not found the systems write a note in the log
+ */
 function usecase( $type, $path ) {
 	$filepath = 'posttypes/'.$type.'/usecases/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -37,6 +43,12 @@ function usecase( $type, $path ) {
 	}
 }
 
+/*
+ * Load a DAO (data access object) file.
+ * DAO's are associated to a posttype, in effect they all are contained
+ * in a folder named "dao" inside the postype folder.
+ * If the dao file is not found the systems write a note in the log
+ */
 function dao( $type, $path ) {
 	$filepath = 'posttypes/'.$type.'/dao/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -47,6 +59,12 @@ function dao( $type, $path ) {
 	}
 }
 
+/*
+ * Load an helper file.
+ * helpers are associated to a posttype, in effect they all are contained
+ * in a folder named "helpers" inside the postype folder.
+ * If the helper file is not found the systems write a note in the log
+ */
 function helper( $type, $path ) {
 	$filepath = 'posttypes/'.$type.'/helpers/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -57,6 +75,12 @@ function helper( $type, $path ) {
 	}
 }
 
+/*
+ * Load an partial file.
+ * partials are associated to a posttype, in effect they all are contained
+ * in a folder named "partial" inside the postype folder.
+ * If the partial file is not found the systems write a note in the log
+ */
 function partial( $type, $path ) {
 	$filepath = 'posttypes/'.$type.'/partial/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -67,6 +91,12 @@ function partial( $type, $path ) {
 	}
 }
 
+/*
+ * Load an importer file.
+ * importers are associated to a posttype, in effect they all are contained
+ * in a folder named "importers" inside the postype folder.
+ * If the importer file is not found the systems write a note in the log
+ */
 function importer( $type, $path ) {
 	$filepath = 'posttypes/'.$type.'/importers/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -77,6 +107,12 @@ function importer( $type, $path ) {
 	}
 }
 
+/*
+ * Load an exporter file.
+ * exporters are associated to a posttype, in effect they all are contained
+ * in a folder named "exporters" inside the postype folder.
+ * If the exporter file is not found the systems write a note in the log
+ */
 function exporter( $type, $path ) {
 	$filepath = 'posttypes/'.$type.'/exporters/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -87,6 +123,10 @@ function exporter( $type, $path ) {
 	}
 }
 
+/*
+ * Load a library file.
+ * Libraries are contained in the folder named "core"
+ */
 function lib( $path ) {
 	$filepath = 'core/libs/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -97,6 +137,10 @@ function lib( $path ) {
 	}
 }
 
+/*
+ * Load an utils file.
+ * Utils are contained in the folder named "core"
+ */
 function utils( $path ) {
 	$filepath = 'core/utils/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
@@ -107,6 +151,10 @@ function utils( $path ) {
 	}
 }
 
+/*
+ * Load an aggregator file.
+ * Aggregators are contained in the folder named "aggregators"
+ */
 function aggregator( $family, $subfamily, $aggregator ) {
 	if ( $subfamily == '' ) {
 		$filepath = 'aggregators/'.$family.'/'.$aggregator.'.php';
