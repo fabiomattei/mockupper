@@ -16,6 +16,8 @@ if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'],'Go
 	require_once 'environments/development.php';
 }
 
+// Loading the basic framework
+require_once 'core/utils/exception.php';
 require_once 'core/utils/loaders.php';
 require_once 'core/utils/utils.php';
 require_once 'core/logger/logger.php';

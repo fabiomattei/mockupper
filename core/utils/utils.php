@@ -104,38 +104,6 @@ function generate_activity_jumbotron_url($activity_id, $filename) {
     return $out;
 }
 
-// fuctions that symplifies the selected property in a form
-function selected( $variable, $term ) {
-	if ( $variable == $term ) return 'selected="selected"';
-	return '';
-}
-
-// fuctions that symplifies the selected property in a form
-function checked_if_contains( $variable, $term ) {
-	if ( strpos( $variable, $term ) !== false ) {
-	    return 'checked="checked"';
-	}
-	return '';
-}
-
-// fuctions that symplifies the selected property in a form
-function jsselected( $variable, $term ) {
-	if ( $variable == $term ) return 'selected=\"selected\"';
-	return '';
-}
-
-// fuctions that symplifies the selected property in a form
-function checked( $variable, $term ) {
-	if ( $variable == $term ) return 'checked="checked"';
-	return '';
-}
-
-// fuctions that symplifies the selected property in a form
-function jschecked( $variable, $term ) {
-	if ( $variable == $term ) return 'checked=\"checked\"';
-	return '';
-}
-
 // Delete unwanted accents
 function clear_string( $str ) {
     $count	= 1;
@@ -171,15 +139,3 @@ function clear_string( $str ) {
 
     return $out;
 }
-
-// GeneralException
-class GeneralException extends Exception {
-}
-
-function generalExceptionHandler($exception) {
-	// echo $exception;
-	header('Location: '.BASEPATH.'errorpage.html');
-	die();
-}
-
-set_exception_handler('generalExceptionHandler');
