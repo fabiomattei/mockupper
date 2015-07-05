@@ -1,5 +1,11 @@
 <?php 
 
+/* ==============================================================
+ * This object has been created to adapt the framework to 
+ * Google App Engine environment
+ * The object has just a method that send an email.
+ * ============================================================== */
+
 use \google\appengine\api\mail\Message;
 
 class GaeMailer {
