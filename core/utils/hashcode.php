@@ -1,4 +1,12 @@
 <?php
+
+/* ==============================================================
+ * This file contains a function for generating ramdom hashcodes
+ * this file it in not loaded by default, if you want to use this 
+ * functions you need to load it using the line:
+ *
+ * utils( 'hashcode' );
+ * ============================================================== */
 	
 /**
  * Generates an hashode that can be used when generating an entity
