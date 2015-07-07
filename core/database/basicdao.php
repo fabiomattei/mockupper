@@ -315,6 +315,62 @@ class BasicDao {
 		}
 	}
 	
+	/**
+	 * This is the basic function for getting an array of elements from a table.
+	 * The returned array will have the entity id as index
+	 * Once you created a instance of the DAO object you can do for example:
+	 *
+	 * $tododao->getByFields( array( 'open' => '0' ) );
+	 * this will get all the row having the field open = 0
+	 *
+	 * you can set more then a search parameter (evaluated in AND)
+	 * $tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
+	 *
+	 * you can even specify how to order the rows you requested
+	 * $tododao->getByFields( array( 'id' => '42' ), array('name', 'description') );
+	 *
+	 * you can even request few specific fields and not the whole table fields
+	 * $tododao->getByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
+	 */	
+	public function getArrayByFields( $conditionsfields, $orderby = 'none', $requestedfields = 'none' ) {
+		$filedslist = $this->organizeConditionsFields($conditionsfields);
+		
+		$requestedfieldlist = $this->organizeRequestedFields($requestedfields);
+		
+		$orderbyfieldlist = $this->organizeOrderByFields($orderby);
+		
+		try {
+			// building the query
+			$query = 'SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' ';
+			if ( $filedslist != '' ) {
+				$query .= 'WHERE '.$filedslist.' ';
+			}
+			$query .= $orderbyfieldlist;
+
+			$STH = $this->DBH->prepare( $query );
+			foreach ($conditionsfields as $key => &$value) {
+				$STH->bindParam($key, $value);
+			}
+			$STH->execute();
+		
+			# setting the fetch mode
+			$STH->setFetchMode(PDO::FETCH_OBJ);
+			
+			$out = array();
+		    while( $item = $STH->fetch() ) {
+				$id = $item->{$this::DB_TABLE_PK};
+		    	$out[$id] = $item;
+		    }
+ 	   
+			return $out;
+		}
+		catch(PDOException $e) {
+			$logger = new Logger();
+			$logger->write($e->getMessage(), __FILE__, __LINE__);
+			throw new GeneralException('General malfuction!!!');
+		}
+	}
+	
 	public function getEmpty() {
 		return null;
 	}
