@@ -9,6 +9,8 @@ todo:
   this can be done whit a settings.php file contained in the posttype folder that contains 
   a set of constants used in queries and UI strings.
 * Add nonce logic (functions library) for security in links and forms
+* Add the logic to abstract the interface from html so it will be possible to change the skeen of the application
+  and there will be no dependency between application and interface
 
 in progress:
 
