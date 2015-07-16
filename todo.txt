@@ -6,6 +6,8 @@ todo:
 * Modify the core in order to add offices permissions system
 * Think about how to create a setting thing related to a posttype in order to make it more indipendent from other posttypes
   for example we have a dependency between todos and users with an externa key to the package
+  this can be done whit a settings.php file contained in the posttype folder that contains 
+  a set of constants used in queries and UI strings.
 * Add nonce logic (functions library) for security in links and forms
 
 in progress:
