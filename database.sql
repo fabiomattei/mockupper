@@ -42,12 +42,12 @@ INSERT INTO `todos` (`td_id`, `td_title`, `td_body`) VALUES (1, 'Hello world', '
 --
 
 CREATE TABLE `users` (
-  `us_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `us_name` varchar(80) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `us_password` varchar(80) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `us_salt` varchar(80) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `us_updated` datetime,
-  `us_created` datetime, 
+  `usr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `usr_name` varchar(80) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `usr_password` varchar(80) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `usr_salt` varchar(80) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `usr_updated` datetime,
+  `usr_created` datetime, 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
