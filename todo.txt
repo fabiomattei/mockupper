@@ -4,7 +4,9 @@ todo:
 * Add a posttype and a core API for cron stuff
 * Modify the core in order to add user permissions system
 * Modify the core in order to add offices permissions system
-* aggingere nonce logic (functions library) for link and form
+* Think about how to create a setting thing related to a posttype in order to make it more indipendent from other posttypes
+  for example we have a dependency between todos and users with an externa key to the package
+* Add nonce logic (functions library) for security in links and forms
 
 in progress:
 
