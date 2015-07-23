@@ -152,19 +152,19 @@ function utils( $path ) {
 }
 
 /*
- * Load an aggregator file.
+ * Load an office file.
  * Aggregators are contained in the folder named "aggregators"
  */
-function aggregator( $family, $subfamily, $aggregator ) {
+function office( $family, $subfamily, $office ) {
 	if ( $subfamily == '' ) {
-		$filepath = 'aggregators/'.$family.'/'.$aggregator.'.php';
+		$filepath = 'offices/'.$family.'/'.$office.'.php';
 	} else {
-		$filepath = 'aggregators/'.$family.'/'.$subfamily.'/'.$aggregator.'.php';
+		$filepath = 'offices/'.$family.'/'.$subfamily.'/'.$office.'.php';
 	}
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
 	} else {
 		$logger = new Logger();
-		$logger->write( 'ERROR: -aggregator- file dose not exists: '.$filepath );
+		$logger->write( 'ERROR: -office- file dose not exists: '.$filepath );
 	}
 }

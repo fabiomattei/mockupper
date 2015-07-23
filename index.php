@@ -16,14 +16,14 @@ $request  = str_replace( '.pdf', '', $request2 );
 $parameters = array();
 
 if ( strlen( $request ) > 0 ) {
-	list( $family, $subfamily, $aggregator, $parameters ) = spliturl( $request );
+	list( $family, $subfamily, $office, $parameters ) = spliturl( $request );
 
-	aggregator( $family, $subfamily, $aggregator );
+	office( $family, $subfamily, $office );
 } else {
 	// redirecting to default aggregator set in the environment file
-	aggregator( FAMILY, SUBFAMILY, AGGREGATOR );
+	office( FAMILY, SUBFAMILY, AGGREGATOR );
 }
 
-$aggregator = new Aggregator();
-$aggregator->setParameters( $parameters );
-$aggregator->showPage();
+$office = new Aggregator();
+$office->setParameters( $parameters );
+$office->showPage();
