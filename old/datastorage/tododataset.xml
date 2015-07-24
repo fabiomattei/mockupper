@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<dataset>
+    <table name="todos">
+        <column>id</column>
+        <column>title</column>
+        <column>body</column>
+        <row>
+            <value>1</value>
+            <value>My first todo title</value>
+            <value>My first todo body</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>My second todo title</value>
+            <value>My second todo body</value>
+        </row>
+    </table>
+</dataset>

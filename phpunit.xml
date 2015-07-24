@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="usecases">
+            <directory>test/usecases</directory>
+        </testsuite>
+        <testsuite name="datastorage">
+            <directory>test/datastorage</directory>
+        </testsuite>
+        <testsuite name="loaders">
+            <directory>test/presentation/pages</directory>
+        </testsuite>
+        <testsuite name="blocks">
+            <directory>test/presentation/blocks</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
