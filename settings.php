@@ -8,16 +8,21 @@
  * in APP_ROOT/environments/
  */
 
-if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'],'Google App Engine') !== false) {
-	// loading pruduction settings
-	require_once 'environments/production.php';
+if ( null !== TESTCASE ) {
+	if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && strpos( $_SERVER['SERVER_SOFTWARE'],'Google App Engine') !== false ) {
+		// loading pruduction settings
+		require_once 'environments/production.php';
+	} else {
+		// loading developement settings
+		require_once 'environments/development.php';
+	}
 } else {
-	// loading developement settings
-	require_once 'environments/development.php';
+	require_once 'environments/test.php';
 }
 
+
 // Loading the basic framework
-require_once 'core/utils/exception.php';
-require_once 'core/utils/loaders.php';
-require_once 'core/utils/utils.php';
-require_once 'core/logger/logger.php';
+require_once 'framework/utils/exception.php';
+require_once 'framework/utils/loaders.php';
+require_once 'framework/utils/utils.php';
+require_once 'framework/logger/logger.php';

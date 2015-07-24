@@ -1,6 +1,6 @@
 <?php
 
-require_once "core/blocks/baseblock.php";
+require_once "framework/blocks/baseblock.php";
 
 class PageTitle extends BaseBlock {
 	

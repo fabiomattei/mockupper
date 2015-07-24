@@ -2,7 +2,7 @@
 
 define("APP_ROOT", "../");
 
-require_once 'core/aggregators/publicaggregator.php';
+require_once 'framework/aggregators/publicaggregator.php';
 
 class Aggregator extends PublicAggregator {
 	

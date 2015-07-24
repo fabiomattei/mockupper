@@ -7,7 +7,7 @@
 
 /*
  * Load a block file.
- * It starts checking the "core/blocks" folder in order to check that the passed
+ * It starts checking the "framework/blocks" folder in order to check that the passed
  * name matches a core block file name.
  * If it does not match it checks the "aggregators" folder looking for a file named:
  * aggregatos/$type/blocks/$path.php
@@ -16,7 +16,7 @@
  */
 function block( $type, $path ) {
 	if ( $type == 'core') {
-		require_once 'core/blocks/'.$path.'.php';
+		require_once 'framework/blocks/'.$path.'.php';
 	} else {
 		if ( file_exists( 'aggregators/'.$type.'/blocks/'.$path.'.php' ) ) {
 		    require_once 'aggregators/'.$type.'/blocks/'.$path.'.php';
@@ -128,7 +128,7 @@ function exporter( $type, $path ) {
  * Libraries are contained in the folder named "core"
  */
 function lib( $path ) {
-	$filepath = 'core/libs/'.$path.'.php';
+	$filepath = 'framework/libs/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
 	} else {
@@ -142,7 +142,7 @@ function lib( $path ) {
  * Utils are contained in the folder named "core"
  */
 function utils( $path ) {
-	$filepath = 'core/utils/'.$path.'.php';
+	$filepath = 'framework/utils/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
 	} else {
@@ -167,4 +167,30 @@ function office( $family, $subfamily, $office ) {
 		$logger = new Logger();
 		$logger->write( 'ERROR: -office- file dose not exists: '.$filepath );
 	}
+}
+
+/**
+ * It creates a URL appenting the content of variable $_SESSION['usr_type'] to BASEPATH
+ *
+ * Result is: BASEPATH . $_SESSION['usr_type'] . $final_part
+ *
+ * @param        string     Group
+ * @param        string     Action
+ * @param        string     Parameters: string containing all parameters separated by '/'
+ * @param        string     Extension:  .html by default
+ *
+ * @return       string     The url well formed
+ */
+function make_url( $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
+	if ( $group == 'main' AND $action == '' ) {
+		return BASEPATH;
+	}
+	if ( $group != 'main' AND $action == '' ) {
+		return BASEPATH.$_SESSION['usr_type'];
+	}
+    if ( $group == 'main' ) {
+        return BASEPATH.$_SESSION['usr_type'].'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+    } else {
+        return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+    }
 }
