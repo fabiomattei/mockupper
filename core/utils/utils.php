@@ -71,16 +71,16 @@ function url_title($str, $separator = '-', $lowercase = TRUE) {
  *
  * @param        string     Group
  * @param        string     Action
- * @param        string     Parameters: string separated with '/'
- * @param        string     Extection:  .html by default
+ * @param        string     Parameters: string containing all parameters separated by '/'
+ * @param        string     Extension:  .html by default
  *
  * @return       string     The url well formed
  */
-function make_url( $group = 'main', $action = '', $parameters = '', $extection = '.html' ) {
+function make_url( $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
     if ( $group == 'main' ) {
-        return BASEPATH.$_SESSION['usr_type'].'/'.$action.'/'.$parameters.$extection;
+        return BASEPATH.$_SESSION['usr_type'].'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     } else {
-        return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/'.$action.'/'.$parameters.$extection;
+        return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     }
 }
 
