@@ -152,14 +152,18 @@ function utils( $path ) {
 }
 
 /*
- * Load an office file.
- * Aggregators are contained in the folder named "aggregators"
+ * Load an office file. (require_once)
+ * Office files are contained in the folder named "offices"
+ *
+ * @param        string     Group
+ * @param        string     Action
+ * @param        string     Parameters: string containing all parameters separated by '/'
  */
-function office( $family, $subfamily, $office ) {
-	if ( $subfamily == '' ) {
-		$filepath = 'offices/'.$family.'/'.$office.'.php';
+function office( $folder, $subfolder, $action ) {
+	if ( $subfolder == '' ) {
+		$filepath = 'offices/'.$folder.'/'.$action.'.php';
 	} else {
-		$filepath = 'offices/'.$family.'/'.$subfamily.'/'.$office.'.php';
+		$filepath = 'offices/'.$folder.'/'.$subfolder.'/'.$action.'.php';
 	}
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
