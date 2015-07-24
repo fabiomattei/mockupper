@@ -151,7 +151,7 @@ function utils( $path ) {
 	}
 }
 
-/*
+/**
  * Load an office file. (require_once)
  * Office files are contained in the folder named "offices"
  *
