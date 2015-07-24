@@ -186,7 +186,7 @@ function make_url( $group = 'main', $action = '', $parameters = '', $extension =
 		return BASEPATH;
 	}
 	if ( $group != 'main' AND $action == '' ) {
-		return BASEPATH.$_SESSION['usr_type'];
+		return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/index.html';
 	}
     if ( $group == 'main' ) {
         return BASEPATH.$_SESSION['usr_type'].'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;

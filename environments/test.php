@@ -18,7 +18,7 @@ define('DBPASSWORD', '');
  * BASEPATH: the base URL where the web application is installed
  * PATHTOAPP: it is the eventual subfolder where the application is installed
  */
-define('BASEPATH', 'http://example.com/');
+define('BASEPATH', 'http://www.example.com/');
 define('PATHTOAPP', '/mockupper/');
 
 /* 
