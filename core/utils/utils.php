@@ -64,6 +64,26 @@ function url_title($str, $separator = '-', $lowercase = TRUE) {
 	return trim($str, $separator);
 }
 
+/**
+ * It creates a URL appenting the content of variable $_SESSION['usr_type'] to BASEPATH
+ *
+ * Result is: BASEPATH . $_SESSION['usr_type'] . $final_part
+ *
+ * @param        string     Group
+ * @param        string     Action
+ * @param        string     Parameters: string separated with '/'
+ * @param        string     Extection:  .html by default
+ *
+ * @return       string     The url well formed
+ */
+function make_url( $group = 'main', $action = '', $parameters = '', $extection = '.html' ) {
+    if ( $group == 'main' ) {
+        return BASEPATH.$_SESSION['usr_type'].'/'.$action.'/'.$parameters.$extection;
+    } else {
+        return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/'.$action.'/'.$parameters.$extection;
+    }
+}
+
 // functions per immagini
 
 function generate_user_img_url($user_id, $user_filename) {
