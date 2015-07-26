@@ -161,6 +161,10 @@ function utils( $path ) {
  * @param        string     Group
  * @param        string     Action
  * @param        string     Parameters: string containing all parameters separated by '/'
+ * @param        string     If set to "on" make the function return the calculated path
+ *                          instead to "require" the file.
+ *
+ * @return       string     Just for testing purpose
  */
 function office( $folder, $subfolder, $action, $testmode = 'off' ) {
 	// default out path
