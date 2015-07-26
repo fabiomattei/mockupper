@@ -200,9 +200,9 @@ function office( $folder, $subfolder, $action, $testmode = 'off' ) {
 }
 
 /**
- * It creates a URL appenting the content of variable $_SESSION['usr_type'] to BASEPATH
+ * It creates a URL appenting the content of variable $_SESSION['office'] to BASEPATH
  *
- * Result is: BASEPATH . $_SESSION['usr_type'] . $final_part
+ * Result is: BASEPATH . $_SESSION['office'] . $final_part
  *
  * @param        string     Group
  * @param        string     Action
@@ -216,12 +216,12 @@ function make_url( $group = 'main', $action = '', $parameters = '', $extension =
 		return BASEPATH;
 	}
 	if ( $group != 'main' AND $action == '' ) {
-		return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/index.html';
+		return BASEPATH.$_SESSION['office'].'-'.$group.'/index.html';
 	}
     if ( $group == 'main' ) {
-        return BASEPATH.$_SESSION['usr_type'].'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+        return BASEPATH.$_SESSION['office'].'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     } else {
-        return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+        return BASEPATH.$_SESSION['office'].'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     }
 	
 }
