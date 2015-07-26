@@ -11,18 +11,18 @@
  * name matches a core block file name.
  * If it does not match it checks the "aggregators" folder looking for a file named:
  * aggregatos/$type/blocks/$path.php
- * If no file is found it checks the "posttypes" folder looking for a file named:
- * posttypes/$type/blocks/$path.php
+ * If no file is found it checks the "datastore" folder looking for a file named:
+ * datastore/$type/blocks/$path.php
  */
 function block( $type, $path ) {
 	if ( $type == 'core') {
-		require_once 'framework/blocks/'.$path.'.php';
+		require_once 'templates/blocks/'.$path.'.php';
 	} else {
 		if ( file_exists( 'aggregators/'.$type.'/blocks/'.$path.'.php' ) ) {
 		    require_once 'aggregators/'.$type.'/blocks/'.$path.'.php';
 		}
-		if ( file_exists( 'posttypes/'.$type.'/blocks/'.$path.'.php' ) ) {
-		    require_once 'posttypes/'.$type.'/blocks/'.$path.'.php';
+		if ( file_exists( 'datastore/'.$type.'/blocks/'.$path.'.php' ) ) {
+		    require_once 'datastore/'.$type.'/blocks/'.$path.'.php';
 		}
 	}
 }
@@ -34,7 +34,7 @@ function block( $type, $path ) {
  * If the usecase file is not found the systems write a note in the log
  */
 function usecase( $type, $path ) {
-	$filepath = 'posttypes/'.$type.'/usecases/'.$path.'.php';
+	$filepath = 'datastore/'.$type.'/usecases/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -50,7 +50,7 @@ function usecase( $type, $path ) {
  * If the dao file is not found the systems write a note in the log
  */
 function dao( $type, $path ) {
-	$filepath = 'posttypes/'.$type.'/dao/'.$path.'.php';
+	$filepath = 'datastore/'.$type.'/dao/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -66,7 +66,7 @@ function dao( $type, $path ) {
  * If the helper file is not found the systems write a note in the log
  */
 function helper( $type, $path ) {
-	$filepath = 'posttypes/'.$type.'/helpers/'.$path.'.php';
+	$filepath = 'datastore/'.$type.'/helpers/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -82,7 +82,7 @@ function helper( $type, $path ) {
  * If the partial file is not found the systems write a note in the log
  */
 function partial( $type, $path ) {
-	$filepath = 'posttypes/'.$type.'/partial/'.$path.'.php';
+	$filepath = 'datastore/'.$type.'/partial/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -98,7 +98,7 @@ function partial( $type, $path ) {
  * If the importer file is not found the systems write a note in the log
  */
 function importer( $type, $path ) {
-	$filepath = 'posttypes/'.$type.'/importers/'.$path.'.php';
+	$filepath = 'datastore/'.$type.'/importers/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -114,7 +114,7 @@ function importer( $type, $path ) {
  * If the exporter file is not found the systems write a note in the log
  */
 function exporter( $type, $path ) {
-	$filepath = 'posttypes/'.$type.'/exporters/'.$path.'.php';
+	$filepath = 'datastore/'.$type.'/exporters/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {

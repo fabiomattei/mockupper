@@ -4,7 +4,7 @@ todo:
 * Add a posttype and a core API for cron stuff
 * Modify the core in order to add user permissions system
 * Modify the core in order to add offices permissions system
-* Think about how to create a setting thing related to a posttype in order to make it more indipendent from other posttypes
+* Think about how to create a setting thing related to a posttype in order to make it more indipendent from other datastore
   for example we have a dependency between todos and users with an externa key to the package
   this can be done whit a settings.php file contained in the posttype folder that contains 
   a set of constants used in queries and UI strings.
