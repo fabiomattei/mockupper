@@ -152,19 +152,38 @@ function utils( $path ) {
 }
 
 /**
- * Load an office file. (require_once)
- * Office files are contained in the folder named "offices"
+ * Load an office file. (using require_once)
+ * Office files are contained in the folder named "offices".
+ * They act as the "controllers" of this framework, they load data from database
+ * in order to populate blocks, they load the blocks and they organize blocks 
+ * so blocks can be displayed in the template.
  *
  * @param        string     Group
  * @param        string     Action
  * @param        string     Parameters: string containing all parameters separated by '/'
  */
-function office( $folder, $subfolder, $action ) {
-	if ( $subfolder == '' ) {
-		$filepath = 'offices/'.$folder.'/'.$action.'.php';
-	} else {
-		$filepath = 'offices/'.$folder.'/'.$subfolder.'/'.$action.'.php';
+function office( $folder, $subfolder, $action, $testmode = 'off' ) {
+	// default out path
+	$filepath = 'offices';
+	
+	if ( $folder != '' ) {
+		$filepath .= '/'.$folder;
 	}
+	
+	if ( $subfolder != '' ) {
+		$filepath .= '/'.$subfolder;
+	}
+	
+	if ( $action == '' ) {
+		$filepath .= '/index.php';
+	} else {
+		$filepath .= '/'.$action.'.php';
+	}
+	
+	if ( $testmode == 'on' ) {
+		return $filepath;
+	} 
+	
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
 	} else {
@@ -197,4 +216,5 @@ function make_url( $group = 'main', $action = '', $parameters = '', $extension =
     } else {
         return BASEPATH.$_SESSION['usr_type'].'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     }
+	
 }
