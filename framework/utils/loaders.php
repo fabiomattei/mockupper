@@ -131,7 +131,10 @@ function lib( $path ) {
 	$filepath = 'framework/libs/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
-	} else {
+	} elseif ( file_exists( 'libs/'.$path.'.php' ) ) {
+		require_once $filepath;
+	}
+	else {
 		$logger = new Logger();
 		$logger->write( 'ERROR: -library- file dose not exists: '.$filepath );
 	}
