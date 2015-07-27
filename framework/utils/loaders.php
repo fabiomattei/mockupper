@@ -164,10 +164,16 @@ function utils( $path ) {
 		require_once 'framework/utils/'.$path.'.php';
 		
 	} elseif ( file_exists( 'utils/'.$path.'.php' ) ) {
+		
 		require_once 'utils/'.$path.'.php';
+		
 	} else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -utils- file dose not exists: ' . $path );
+		
 	}
 }
 
