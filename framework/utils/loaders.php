@@ -5,7 +5,7 @@
  * to load the files that composes the pages
  * ============================================================== */
 
-/*
+/**
  * Load a block file.
  * It starts checking the "framework/blocks" folder in order to check that the passed
  * name matches a core block file name.
@@ -13,6 +13,13 @@
  * aggregatos/$type/blocks/$path.php
  * If no file is found it checks the "datastore" folder looking for a file named:
  * datastore/$type/blocks/$path.php
+ * 
+ * If no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name or office name or 'core'
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
 function block( $type, $path ) {
 	if ( $type == 'core') {
@@ -27,14 +34,21 @@ function block( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load an usecase file.
  * Usecase are associated to a posttype, in effect they all are contained
  * in a folder named "usecases" inside the postype folder.
  * If the usecase file is not found the systems write a note in the log
+ * 
+ * If no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
-function usecase( $type, $path ) {
-	$filepath = 'datastore/'.$type.'/usecases/'.$path.'.php';
+function usecase( $datastore, $path ) {
+	$filepath = 'datastore/'.$datastore.'/usecases/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -43,14 +57,21 @@ function usecase( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load a DAO (data access object) file.
  * DAO's are associated to a posttype, in effect they all are contained
  * in a folder named "dao" inside the postype folder.
  * If the dao file is not found the systems write a note in the log
+ * 
+ * If no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
-function dao( $type, $path ) {
-	$filepath = 'datastore/'.$type.'/dao/'.$path.'.php';
+function dao( $datastore, $path ) {
+	$filepath = 'datastore/'.$datastore.'/dao/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -59,14 +80,21 @@ function dao( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load an helper file.
  * helpers are associated to a posttype, in effect they all are contained
  * in a folder named "helpers" inside the postype folder.
  * If the helper file is not found the systems write a note in the log
+ * 
+ * If no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
-function helper( $type, $path ) {
-	$filepath = 'datastore/'.$type.'/helpers/'.$path.'.php';
+function helper( $datastore, $path ) {
+	$filepath = 'datastore/'.$datastore.'/helpers/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -75,14 +103,21 @@ function helper( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load an partial file.
  * partials are associated to a posttype, in effect they all are contained
  * in a folder named "partial" inside the postype folder.
  * If the partial file is not found the systems write a note in the log
+ * 
+ * If no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
-function partial( $type, $path ) {
-	$filepath = 'datastore/'.$type.'/partial/'.$path.'.php';
+function partial( $datastore, $path ) {
+	$filepath = 'datastore/'.$datastore.'/partial/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -91,14 +126,21 @@ function partial( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load an importer file.
  * importers are associated to a posttype, in effect they all are contained
  * in a folder named "importers" inside the postype folder.
  * If the importer file is not found the systems write a note in the log
+ * 
+ * If no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
-function importer( $type, $path ) {
-	$filepath = 'datastore/'.$type.'/importers/'.$path.'.php';
+function importer( $datastore, $path ) {
+	$filepath = 'datastore/'.$datastore.'/importers/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
@@ -113,7 +155,7 @@ function importer( $type, $path ) {
  * in a folder named "exporters" inside the postype folder.
  * If the exporter file is not found the systems write a note in the log
  * 
- * IF no file is found the function writes an ERROR message in the log
+ * If no file is found the function writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -134,7 +176,7 @@ function exporter( $datastore, $path ) {
  * Load a library file.
  * Libraries are contained in the folder named "core"
  * 
- * IF no file is found the function writes an ERROR message in the log
+ * If no file is found the function writes an ERROR message in the log
  *
  * @param        string     lib file name
  *
@@ -161,7 +203,7 @@ function lib( $path ) {
  * When user uses the utils function in order to load a file the function checks
  * initially in the framwork/utils folder and then in /utils folder.
  * 
- * IF no file is found the function writes an ERROR message in the log
+ * If no file is found the function writes an ERROR message in the log
  *
  * @param        string     utils file name
  *
