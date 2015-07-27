@@ -21,6 +21,12 @@ class LoadersTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( $expected, $out );
 	}
 	
+	public function test_utils_given_not_existent_utils_file_return_empty_path() {
+		$out = utils( 'not-existent', 'on' );
+		$expected = '';
+		$this->assertSame( $expected, $out );
+	}
+	
 	/**
 	 * Testing function office()
 	 */

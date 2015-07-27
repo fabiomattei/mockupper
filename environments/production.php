@@ -3,6 +3,9 @@
 // ERROR reporting
 ini_set('error_reporting', E_ALL);
 
+// It activates the test mode
+define ( 'TESTMODE', 'off' );
+
 // database
 /** Live environment Cloud SQL login and SITE_URL info */
 //define('DBHOST', ':/cloudsql/cihsscope:scopedb;');

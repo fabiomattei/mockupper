@@ -3,6 +3,9 @@
 // ERROR reporting
 ini_set('error_reporting', E_ALL);
 
+// It activates the test mode
+define ( 'TESTMODE', 'off' );
+
 // database
 define('DBHOST', 'mysql:host=127.0.0.1:8889;dbname=');
 define('DBNAME', 'todo');

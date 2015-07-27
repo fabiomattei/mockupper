@@ -154,19 +154,20 @@ function lib( $path ) {
  *
  * @return       string     Just for testing purpose
  */
-function utils( $path, $testmode = 'off' ) {
+function utils( $path ) {
 	if ( $path == '' ) throw new GeneralException('General malfuction!!!');
 	
 	if ( file_exists( 'framework/utils/'.$path.'.php' ) ) {
-		if ( $testmode == 'on' ) {
-			return 'framework/utils/'.$path.'.php';
-		} 
+		
+		if ( TESTMODE == 'on' ) return 'framework/utils/'.$path.'.php';
+		
 		require_once 'framework/utils/'.$path.'.php';
+		
 	} elseif ( file_exists( 'utils/'.$path.'.php' ) ) {
 		require_once 'utils/'.$path.'.php';
 	} else {
 		$logger = new Logger();
-		$logger->write( 'ERROR: -utils- file dose not exists. ' );
+		$logger->write( 'ERROR: -utils- file dose not exists: ' . $path );
 	}
 }
 
@@ -185,7 +186,7 @@ function utils( $path, $testmode = 'off' ) {
  *
  * @return       string     Just for testing purpose
  */
-function office( $folder, $subfolder, $action, $testmode = 'off' ) {
+function office( $folder, $subfolder, $action ) {
 	// default out path
 	$filepath = 'offices';
 	
@@ -203,7 +204,7 @@ function office( $folder, $subfolder, $action, $testmode = 'off' ) {
 		$filepath .= '/'.$action.'.php';
 	}
 	
-	if ( $testmode == 'on' ) {
+	if ( TESTMODE == 'on' ) {
 		return $filepath;
 	} 
 	
