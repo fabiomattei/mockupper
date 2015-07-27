@@ -107,14 +107,21 @@ function importer( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load an exporter file.
  * exporters are associated to a posttype, in effect they all are contained
  * in a folder named "exporters" inside the postype folder.
  * If the exporter file is not found the systems write a note in the log
+ * 
+ * IF no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
  */
-function exporter( $type, $path ) {
-	$filepath = 'datastore/'.$type.'/exporters/'.$path.'.php';
+function exporter( $datastore, $path ) {
+	$filepath = 'datastore/'.$datastore.'/exporters/'.$path.'.php';
 	if ( file_exists( $filepath ) ) {
 	    require_once $filepath;
 	} else {
