@@ -162,7 +162,7 @@ function exporter( $datastore, $path ) {
 
 /**
  * Load a library file.
- * Libraries are contained in the folder named "core"
+ * Libraries are contained in the folder named "framework"
  * 
  * If no lib file is found the function writes an ERROR message in the log
  *
@@ -171,15 +171,26 @@ function exporter( $datastore, $path ) {
  * @return       string     Just for testing purpose
  */
 function lib( $path ) {
-	$filepath = 'framework/libs/'.$path.'.php';
-	if ( file_exists( $filepath ) ) {
-		require_once $filepath;
+	if ( $path == '' ) throw new GeneralException('General malfuction!!!');
+	
+	if ( file_exists( 'framework/libs/'.$path.'.php' ) ) {
+		
+		if ( TESTMODE == 'on' ) return 'framework/libs/'.$path.'.php';
+		
+		require_once 'framework/libs/'.$path.'.php';
+		
 	} elseif ( file_exists( 'libs/'.$path.'.php' ) ) {
-		require_once $filepath;
+		
+		require_once 'libs/'.$path.'.php';
+		
 	}
 	else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -library- file dose not exists: '.$filepath );
+		
 	}
 }
 

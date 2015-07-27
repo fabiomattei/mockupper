@@ -6,6 +6,22 @@ require_once 'settings.php';
 class LoadersTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
+	 * Testing function lib()
+	 */
+	public function test_lib_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = lib( '' );
+		$expected = '';
+		$this->assertSame( $expected, $out );
+	}
+	
+	public function test_lib_given_core_utils_file_return_right_path() {
+		$out = lib( 'mailer' );
+		$expected = 'framework/lib/mailer.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	/**
 	 * Testing function utils()
 	 */
 	public function test_utils_given_no_parameters_throws_exception() {
