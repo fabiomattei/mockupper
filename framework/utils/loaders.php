@@ -123,9 +123,15 @@ function exporter( $type, $path ) {
 	}
 }
 
-/*
+/**
  * Load a library file.
  * Libraries are contained in the folder named "core"
+ * 
+ * IF no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     lib file name
+ *
+ * @return       string     Just for testing purpose
  */
 function lib( $path ) {
 	$filepath = 'framework/libs/'.$path.'.php';
