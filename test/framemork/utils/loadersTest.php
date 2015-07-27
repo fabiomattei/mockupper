@@ -2,9 +2,24 @@
 
 define( 'TESTCASE', 'in test' );
 require_once 'settings.php';
-require_once 'framework/utils/loaders.php';
 
 class LoadersTest extends \PHPUnit_Framework_TestCase {
+	
+	/**
+	 * Testing function utils()
+	 */
+	public function test_utils_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = utils( '', 'on' );
+		$expected = '';
+		$this->assertSame( $expected, $out );
+	}
+	
+	public function test_utils_given_core_utils_file_return_right_path() {
+		$out = utils( 'loaders', 'on' );
+		$expected = 'framework/utils/loaders.php';
+		$this->assertSame( $expected, $out );
+	}
 	
 	/**
 	 * Testing function office()

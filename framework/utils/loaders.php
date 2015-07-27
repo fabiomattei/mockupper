@@ -140,17 +140,33 @@ function lib( $path ) {
 	}
 }
 
-/*
- * Load an utils file.
- * Utils are contained in the folder named "core"
+/**
+ * Load an utils file. (using require_once)
+ * Uitls files are libraries of useful functions you can use inside the code.
+ * Some utils are provided by the framework, they are located in /framework/utils.
+ * User can write his own utils and put the in the project root folder: /utils
+ * When user uses the utils function in order to load a file the function checks
+ * initially in the framwork/utils folder and then in /utils folder.
+ * 
+ * IF no file is found the function writes an ERROR message in the log
+ *
+ * @param        string     utils file name
+ *
+ * @return       string     Just for testing purpose
  */
-function utils( $path ) {
-	$filepath = 'framework/utils/'.$path.'.php';
-	if ( file_exists( $filepath ) ) {
-		require_once $filepath;
+function utils( $path, $testmode = 'off' ) {
+	if ( $path == '' ) throw new GeneralException('General malfuction!!!');
+	
+	if ( file_exists( 'framework/utils/'.$path.'.php' ) ) {
+		if ( $testmode == 'on' ) {
+			return 'framework/utils/'.$path.'.php';
+		} 
+		require_once 'framework/utils/'.$path.'.php';
+	} elseif ( file_exists( 'utils/'.$path.'.php' ) ) {
+		require_once 'utils/'.$path.'.php';
 	} else {
 		$logger = new Logger();
-		$logger->write( 'ERROR: -utils- file dose not exists: '.$filepath );
+		$logger->write( 'ERROR: -utils- file dose not exists. ' );
 	}
 }
 
