@@ -38,9 +38,7 @@ function block( $type, $path ) {
  * Load an usecase file.
  * Usecase are associated to a posttype, in effect they all are contained
  * in a folder named "usecases" inside the postype folder.
- * If the usecase file is not found the systems write a note in the log
- * 
- * If no file is found the function writes an ERROR message in the log
+ * If the usecase file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -61,9 +59,7 @@ function usecase( $datastore, $path ) {
  * Load a DAO (data access object) file.
  * DAO's are associated to a posttype, in effect they all are contained
  * in a folder named "dao" inside the postype folder.
- * If the dao file is not found the systems write a note in the log
- * 
- * If no file is found the function writes an ERROR message in the log
+ * If the dao file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -84,9 +80,7 @@ function dao( $datastore, $path ) {
  * Load an helper file.
  * helpers are associated to a posttype, in effect they all are contained
  * in a folder named "helpers" inside the postype folder.
- * If the helper file is not found the systems write a note in the log
- * 
- * If no file is found the function writes an ERROR message in the log
+ * If the helper file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -107,9 +101,7 @@ function helper( $datastore, $path ) {
  * Load an partial file.
  * partials are associated to a posttype, in effect they all are contained
  * in a folder named "partial" inside the postype folder.
- * If the partial file is not found the systems write a note in the log
- * 
- * If no file is found the function writes an ERROR message in the log
+ * If the partial file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -130,9 +122,7 @@ function partial( $datastore, $path ) {
  * Load an importer file.
  * importers are associated to a posttype, in effect they all are contained
  * in a folder named "importers" inside the postype folder.
- * If the importer file is not found the systems write a note in the log
- * 
- * If no file is found the function writes an ERROR message in the log
+ * If the importer file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -153,9 +143,7 @@ function importer( $datastore, $path ) {
  * Load an exporter file.
  * exporters are associated to a posttype, in effect they all are contained
  * in a folder named "exporters" inside the postype folder.
- * If the exporter file is not found the systems write a note in the log
- * 
- * If no file is found the function writes an ERROR message in the log
+ * If the exporter file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
  * @param        string     path concatenated to file name
@@ -176,7 +164,7 @@ function exporter( $datastore, $path ) {
  * Load a library file.
  * Libraries are contained in the folder named "core"
  * 
- * If no file is found the function writes an ERROR message in the log
+ * If no lib file is found the function writes an ERROR message in the log
  *
  * @param        string     lib file name
  *
