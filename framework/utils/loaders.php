@@ -189,7 +189,6 @@ function utils( $path ) {
  * @param        string     Parameters: string containing all parameters separated by '/'
  * @param        string     If set to "on" make the function return the calculated path
  *                          instead to "require" the file.
- *
  * @return       string     Just for testing purpose
  */
 function office( $folder, $subfolder, $action ) {
@@ -210,9 +209,7 @@ function office( $folder, $subfolder, $action ) {
 		$filepath .= '/'.$action.'.php';
 	}
 	
-	if ( TESTMODE == 'on' ) {
-		return $filepath;
-	} 
+	if ( TESTMODE == 'on' ) return $filepath; 
 	
 	if ( file_exists( $filepath ) ) {
 		require_once $filepath;
@@ -235,6 +232,7 @@ function office( $folder, $subfolder, $action ) {
  * @return       string     The url well formed
  */
 function make_url( $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
+	
 	if ( $group == 'main' AND $action == '' ) {
 		return BASEPATH;
 	}
