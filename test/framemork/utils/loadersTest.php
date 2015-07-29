@@ -6,6 +6,70 @@ require_once 'settings.php';
 class LoadersTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
+	 * Testing function usecase()
+	 */
+	public function test_usecase_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = usecase( '', '' );
+		$this->assertSame( $expected, $out );
+	}
+	
+	
+	public function test_usecase_given_core_utils_file_return_right_path() {
+		$out = usecase( 'users', 'userdosomething' );
+		$expected = 'datastore/users/usecases/userdosomething.php';
+		$this->assertSame( $expected, $out );
+	}
+		
+	/**
+	 * Testing function dao()
+	 */
+	public function test_dao_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = dao( '', '' );
+		$this->assertSame( $expected, $out );
+	}
+	
+	
+	public function test_dao_given_core_utils_file_return_right_path() {
+		$out = dao( 'users', 'user' );
+		$expected = 'datastore/users/dao/user.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	/**
+	 * Testing function helper()
+	 */
+	public function test_helper_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = helper( '', '' );
+		$this->assertSame( $expected, $out );
+	}
+	
+	
+	public function test_helper_given_core_utils_file_return_right_path() {
+		$out = helper( 'users', 'helper' );
+		$expected = 'datastore/users/helpers/helper.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	/**
+	 * Testing function partial()
+	 */
+	public function test_partial_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = partial( '', '' );
+		$this->assertSame( $expected, $out );
+	}
+	
+	
+	public function test_partial_given_core_utils_file_return_right_path() {
+		$out = partial( 'users', 'partial' );
+		$expected = 'datastore/users/partial/partial.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	/**
 	 * Testing function importer()
 	 */
 	public function test_importer_given_no_parameters_throws_exception() {

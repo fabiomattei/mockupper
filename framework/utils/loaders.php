@@ -46,12 +46,24 @@ function block( $type, $path ) {
  * @return       string     Just for testing purpose
  */
 function usecase( $datastore, $path ) {
+	
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	
 	$filepath = 'datastore/'.$datastore.'/usecases/'.$path.'.php';
+	
+	if ( TESTMODE == 'on' ) return $filepath;
+	
 	if ( file_exists( $filepath ) ) {
+		
 	    require_once $filepath;
+		
 	} else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -usecase- file dose not exists: '.$filepath );
+		
 	}
 }
 
@@ -67,19 +79,31 @@ function usecase( $datastore, $path ) {
  * @return       string     Just for testing purpose
  */
 function dao( $datastore, $path ) {
+	
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	
 	$filepath = 'datastore/'.$datastore.'/dao/'.$path.'.php';
+	
+	if ( TESTMODE == 'on' ) return $filepath;
+	
 	if ( file_exists( $filepath ) ) {
+		
 	    require_once $filepath;
+		
 	} else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -dao- file dose not exists: '.$filepath );
+		
 	}
 }
 
 /**
  * Load an helper file.
- * helpers are associated to a posttype, in effect they all are contained
- * in a folder named "helpers" inside the postype folder.
+ * helpers are associated to a datastore, in effect they all are contained
+ * in a folder named "helpers" inside the datastore folder.
  * If the helper file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
@@ -88,12 +112,24 @@ function dao( $datastore, $path ) {
  * @return       string     Just for testing purpose
  */
 function helper( $datastore, $path ) {
+	
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	
 	$filepath = 'datastore/'.$datastore.'/helpers/'.$path.'.php';
+	
+	if ( TESTMODE == 'on' ) return $filepath;
+	
 	if ( file_exists( $filepath ) ) {
+		
 	    require_once $filepath;
+		
 	} else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -helper- file dose not exists: '.$filepath );
+		
 	}
 }
 
@@ -109,12 +145,24 @@ function helper( $datastore, $path ) {
  * @return       string     Just for testing purpose
  */
 function partial( $datastore, $path ) {
+	
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	
 	$filepath = 'datastore/'.$datastore.'/partial/'.$path.'.php';
+	
+	if ( TESTMODE == 'on' ) return $filepath;
+	
 	if ( file_exists( $filepath ) ) {
+		
 	    require_once $filepath;
+		
 	} else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -partial- file dose not exists: '.$filepath );
+		
 	}
 }
 
