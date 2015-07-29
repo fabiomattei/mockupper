@@ -37,23 +37,25 @@ function spliturl( $request ) {
 	return array( $folder, $subfolder, $action, $parameters );
 }
 
-function html_escape($var) {
-	if (is_array($var)) {
+// TODO check this function
+function html_escape( $var ) {
+	if ( is_array( $var ) ) {
 		return array_map('html_escape', $var);
 	} else {
 		return htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
 	}
 }
 
-/*
+/**
+ * @param  string  a string we need to clean
+ * @param  string  separator to sobstitude to unwanted chars
+ * @param  bool    if true the returned string will be lowercase
+ *
+ * @return string  a clean string
+ *
  * Functions that clean string so they can be used in a URL
  */
 function url_title($str, $separator = '-', $lowercase = TRUE) {
-	if ($separator == 'dash') {
-	    $separator = '-';
-	} else if ($separator == 'underscore') {
-	    $separator = '_';
-	}
 	
 	$q_separator = preg_quote($separator);
 
@@ -77,7 +79,13 @@ function url_title($str, $separator = '-', $lowercase = TRUE) {
 	return trim($str, $separator);
 }
 
-// Delete unwanted accents
+/**
+ * @param  string  a string with accents
+ *
+ * @return string  a clean string
+ *
+ * Char with accents will be sobstituted from corresponding HTML code
+ */
 function clear_string( $str ) {
     $count	= 1;
     $out	= '';

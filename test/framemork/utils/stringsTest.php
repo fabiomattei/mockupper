@@ -69,5 +69,21 @@ class StringsTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( $exppars2, $parameters[1] );
 	}
 	
-
+	/**
+	 *  Testing function url_title
+	 */
+	public function test_url_title() {
+		$out = url_title( 'aeiouàèéìòù 	ola' );
+		$exp = 'aeiou-ola';
+		$this->assertSame( $exp, $out );
+	}
+	
+	/**
+	 *  Testing function clear_string
+	 */
+	public function test_clear_string() {
+		$out = clear_string( 'aeiouàèéìòù' );
+		$exp = 'aeiou&#224;&#232;&#233;&#236;&#242;&#249;';
+		$this->assertSame( $exp, $out );
+	}
 }
