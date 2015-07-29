@@ -6,6 +6,22 @@ require_once 'settings.php';
 class LoadersTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
+	 * Testing function importer()
+	 */
+	public function test_importer_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = importer( '', '' );
+		$this->assertSame( $expected, $out );
+	}
+	
+	
+	public function test_importer_given_core_utils_file_return_right_path() {
+		$out = importer( 'users', 'pdfimporter' );
+		$expected = 'datastore/users/importers/pdfimporter.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	/**
 	 * Testing function exporter()
 	 */
 	public function test_exporter_given_no_parameters_throws_exception() {
@@ -14,19 +30,13 @@ class LoadersTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( $expected, $out );
 	}
 	
-	/*
-	public function test_lib_given_core_utils_file_return_right_path() {
-		$out = lib( 'mailer/mailer' );
-		$expected = 'framework/libs/mailer/mailer.php';
-		$this->assertSame( $expected, $out );
-	}
 	
-	public function test_lib_given_not_existent_utils_file_return_empty_path() {
-		$out = lib( 'not-existent' );
-		$expected = '';
+	public function test_exporter_given_core_utils_file_return_right_path() {
+		$out = exporter( 'users', 'pdfexporter' );
+		$expected = 'datastore/users/exporters/pdfexporter.php';
 		$this->assertSame( $expected, $out );
 	}
-	*/
+
 	/**
 	 * Testing function lib()
 	 */
