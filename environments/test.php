@@ -10,6 +10,7 @@ define ( 'RUNNINGENVIRONMENT', 'none' );
 
 // It activates the test mode
 define ( 'TESTMODE', 'on' );
+define ( 'APPTESTMODE', 'off' );
 
 // database
 /** Live environment Cloud SQL login and SITE_URL info */

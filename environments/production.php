@@ -5,6 +5,7 @@ ini_set('error_reporting', E_ALL);
 
 // It activates the test mode
 define ( 'TESTMODE', 'off' );
+define ( 'APPTESTMODE', 'off' );
 
 // database
 /** Live environment Cloud SQL login and SITE_URL info */

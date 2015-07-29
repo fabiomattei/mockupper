@@ -97,6 +97,8 @@ function dao( $datastore, $path ) {
 	
 	if ( TESTMODE == 'on' ) return $filepath;
 	
+	if ( APPTESTMODE == 'on' ) $filepath = 'test/fixtures/'.$path.'.php';
+	
 	if ( file_exists( $filepath ) ) {
 		
 	    require_once $filepath;
