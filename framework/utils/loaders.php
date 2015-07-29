@@ -171,6 +171,7 @@ function exporter( $datastore, $path ) {
  * @return       string     Just for testing purpose
  */
 function lib( $path ) {
+	
 	if ( $path == '' ) throw new GeneralException('General malfuction!!!');
 	
 	if ( file_exists( 'framework/libs/'.$path.'.php' ) ) {
@@ -183,8 +184,7 @@ function lib( $path ) {
 		
 		require_once 'libs/'.$path.'.php';
 		
-	}
-	else {
+	} else {
 		
 		if ( TESTMODE == 'on' ) return '';
 		
