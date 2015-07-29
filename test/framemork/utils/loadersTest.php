@@ -6,12 +6,25 @@ require_once 'settings.php';
 class LoadersTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
+	 * Testing function block()
+	 */
+	public function test_block_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = block( '', '' );
+	}
+	
+	public function test_block_given_template_return_right_path() {
+		$out = block( 'template', 'myblock' );
+		$expected = 'templates/blocks/myblock.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	/**
 	 * Testing function usecase()
 	 */
 	public function test_usecase_given_no_parameters_throws_exception() {
 		$this->setExpectedException('GeneralException');
 		$out = usecase( '', '' );
-		$this->assertSame( $expected, $out );
 	}
 	
 	

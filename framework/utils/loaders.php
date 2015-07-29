@@ -22,12 +22,23 @@
  * @return       string     Just for testing purpose
  */
 function block( $type, $path ) {
-	if ( $type == 'core') {
-		require_once 'templates/blocks/'.$path.'.php';
+	
+	if ( $type == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	
+	if ( $type == 'template') {
+		
+		$filepath = 'templates/blocks/'.$path.'.php';
+		
+		if ( TESTMODE == 'on' ) return $filepath;
+		
+		require_once $filepath;
+		
 	} else {
-		if ( file_exists( 'aggregators/'.$type.'/blocks/'.$path.'.php' ) ) {
-		    require_once 'aggregators/'.$type.'/blocks/'.$path.'.php';
+		
+		if ( file_exists( 'controllers/'.$type.'/blocks/'.$path.'.php' ) ) {
+		    require_once 'controllers/'.$type.'/blocks/'.$path.'.php';
 		}
+		
 		if ( file_exists( 'datastore/'.$type.'/blocks/'.$path.'.php' ) ) {
 		    require_once 'datastore/'.$type.'/blocks/'.$path.'.php';
 		}
