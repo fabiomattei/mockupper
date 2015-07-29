@@ -1,27 +1,34 @@
 <?php
 
+/**
+ * @param $request             a string containing the request
+ *
+ * @return array               an array containing the results
+ *
+ * @throws GeneralException    in case of empty request
+ */
 function spliturl( $request ) {
-	#split the path by '/'
+	
+	if ( $request == '' ) throw new GeneralException('General malfuction!!!');
+	
+	#split the string by '/'
 	$params = explode( '/', $request );
 
-	//echo $_SERVER['REQUEST_URI'].'<br>'.$request;
-	//print_r($params);
-
-	$family = $params[0];
-	$subfamily = '';
-	if ( strpos( $family, '-' ) !== FALSE ) {
-		$newfamily = explode( '-', $family );
+	$folder = $params[0];
+	$subfolder = '';
+	if ( strpos( $folder, '-' ) !== FALSE ) {
+		$newfamily = explode( '-', $folder );
 		//print_r($newfamily);
-		$family    = $newfamily[0];
-		$subfamily = $newfamily[1];
+		$folder    = $newfamily[0];
+		$subfolder = $newfamily[1];
 	}
-	$aggregator = $params[1];
+	$action = $params[1];
 	$parameters = array();
 	if ( isset( $params[2] ) ) { $parameters[] = $params[2]; }
 	if ( isset( $params[3] ) ) { $parameters[] = $params[3]; }
 	if ( isset( $params[4] ) ) { $parameters[] = $params[4]; }
 	
-	return array( $family, $subfamily, $aggregator, $parameters );
+	return array( $folder, $subfolder, $action, $parameters );
 }
 
 function html_escape($var) {
@@ -62,46 +69,6 @@ function url_title($str, $separator = '-', $lowercase = TRUE) {
 	}
 
 	return trim($str, $separator);
-}
-
-// functions per immagini
-
-function generate_user_img_url($user_id, $user_filename) {
-	$user_file_url = BASEPATH.'uploads/clients/group1/client'.$user_id;
-	$user_file_path = realpath('uploads/clients/group1/client'.$user_id);
-		
-	if($user_filename != '' && file_exists($user_file_path) && file_exists($user_file_path.'/'.$user_filename)) {
-		$out = $user_file_url.'/'.$user_filename;
-	} else {
-		$out = BASEPATH.'assets/images/avatar_default.jpg'; 
-	}
-    return $out;
-}
-
-function get_activity_img_path($acfoldername, $prid) {
-    return 'uploads/activities/group1/'.$acfoldername.'/main/';
-}
-
-function generate_activity_logo_url($activity_folder, $filename) {
-	$user_file_url = BASEPATH.'uploads/activities/group1/'.$activity_folder.'/main';
-	$user_file_path = realpath('uploads/activities/group1/'.$activity_folder.'/main');
-	if($filename != '' && file_exists($user_file_path) && file_exists($user_file_path.'/'.$filename)) {
-		$out = $user_file_url.'/'.$filename;
-	} else {
-		$out = BASEPATH.'assets/images/fotomancante.jpg';
-	}
-    return $out;
-}
-
-function generate_activity_jumbotron_url($activity_id, $filename) {
-	$user_file_url = BASEPATH.'uploads/activities/group1/activity'.$activity_id.'/main';
-	$user_file_path = realpath('uploads/activities/group1/activity'.$activity_id.'/main');
-	if($filename != '' && file_exists($user_file_path) && file_exists($user_file_path.'/'.$filename)) {
-		$out = $user_file_url.'/'.$filename;
-	} else {
-		$out = BASEPATH.'assets/images/jumbotron.png';
-	}
-    return $out;
 }
 
 // Delete unwanted accents

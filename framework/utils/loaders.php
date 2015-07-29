@@ -315,10 +315,10 @@ function utils( $path ) {
 }
 
 /**
- * Load an office file. (using require_once)
- * Office files are contained in the folder named "offices".
- * They act as the "controllers" of this framework, they load data from database
- * in order to populate blocks, they load the blocks and they organize blocks 
+ * Load a controller file. (using require_once)
+ * Controllers are contained in the folder named "controllers".
+ * They load data from database in order to populate blocks, 
+ * they load the blocks and they organize blocks 
  * so blocks can be displayed in the template.
  *
  * @param        string     Group
@@ -328,9 +328,9 @@ function utils( $path ) {
  *                          instead to "require" the file.
  * @return       string     Just for testing purpose
  */
-function office( $folder, $subfolder, $action ) {
+function controller( $folder, $subfolder, $action ) {
 	// default out path
-	$filepath = 'offices';
+	$filepath = 'controllers';
 	
 	if ( $folder != '' ) {
 		$filepath .= '/'.$folder;
