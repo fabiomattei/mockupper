@@ -11,6 +11,10 @@
 /**
  * Generates an hashode that can be used when generating an entity
  * Default given lenght is 76 chars
+ *
+ * @param        integer    lenght of the resulting string
+ *
+ * @return       string     random string
  */
 function generate_hashcode( $length = 76 ) {
     $password = "";

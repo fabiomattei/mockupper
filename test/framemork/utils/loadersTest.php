@@ -140,18 +140,18 @@ class LoadersTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_utils_given_no_parameters_throws_exception() {
 		$this->setExpectedException('GeneralException');
-		$out = utils( '', 'on' );
+		$out = utils( '' );
 		$this->assertSame( $expected, $out );
 	}
 	
 	public function test_utils_given_core_utils_file_return_right_path() {
-		$out = utils( 'loaders', 'on' );
+		$out = utils( 'loaders' );
 		$expected = 'framework/utils/loaders.php';
 		$this->assertSame( $expected, $out );
 	}
 	
 	public function test_utils_given_not_existent_utils_file_return_empty_path() {
-		$out = utils( 'not-existent', 'on' );
+		$out = utils( 'not-existent' );
 		$expected = '';
 		$this->assertSame( $expected, $out );
 	}
