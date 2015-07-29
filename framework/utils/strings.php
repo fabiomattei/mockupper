@@ -6,6 +6,12 @@
  * @return array               an array containing the results
  *
  * @throws GeneralException    in case of empty request
+ *
+ * Prende una stringa e la divide nelle sue parti.
+ * Restituisce poi le parti ottenute attraverso un array.
+ *
+ * Es. 'folder-subfolder/action/par1/par2/par3'
+ * Diventa array( 'folder', 'subfolder', 'action', array( 'par1', 'par2', 'par3' ) )
  */
 function spliturl( $request ) {
 	
