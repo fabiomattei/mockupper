@@ -141,8 +141,8 @@ function importer( $datastore, $path ) {
 
 /**
  * Load an exporter file.
- * exporters are associated to a posttype, in effect they all are contained
- * in a folder named "exporters" inside the postype folder.
+ * exporters are associated to a datastore, in effect they all are contained
+ * in a folder named "exporters" inside the datastore folder.
  * If the exporter file is not found the systems writes an ERROR message in the log
  *
  * @param        string     datastore name
@@ -151,12 +151,24 @@ function importer( $datastore, $path ) {
  * @return       string     Just for testing purpose
  */
 function exporter( $datastore, $path ) {
+	
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	
 	$filepath = 'datastore/'.$datastore.'/exporters/'.$path.'.php';
+	
 	if ( file_exists( $filepath ) ) {
+		
+		if ( TESTMODE == 'on' ) return $filepath;
+		
 	    require_once $filepath;
+		
 	} else {
+		
+		if ( TESTMODE == 'on' ) return '';
+		
 		$logger = new Logger();
 		$logger->write( 'ERROR: -exporters- file dose not exists: '.$filepath );
+		
 	}
 }
 

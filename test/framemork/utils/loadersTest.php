@@ -6,18 +6,45 @@ require_once 'settings.php';
 class LoadersTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
+	 * Testing function exporter()
+	 */
+	public function test_exporter_given_no_parameters_throws_exception() {
+		$this->setExpectedException('GeneralException');
+		$out = exporter( '', '' );
+		$this->assertSame( $expected, $out );
+	}
+	
+	/*
+	public function test_lib_given_core_utils_file_return_right_path() {
+		$out = lib( 'mailer/mailer' );
+		$expected = 'framework/libs/mailer/mailer.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	public function test_lib_given_not_existent_utils_file_return_empty_path() {
+		$out = lib( 'not-existent' );
+		$expected = '';
+		$this->assertSame( $expected, $out );
+	}
+	*/
+	/**
 	 * Testing function lib()
 	 */
 	public function test_lib_given_no_parameters_throws_exception() {
 		$this->setExpectedException('GeneralException');
 		$out = lib( '' );
-		$expected = '';
 		$this->assertSame( $expected, $out );
 	}
 	
 	public function test_lib_given_core_utils_file_return_right_path() {
-		$out = lib( 'mailer' );
-		$expected = 'framework/lib/mailer.php';
+		$out = lib( 'mailer/mailer' );
+		$expected = 'framework/libs/mailer/mailer.php';
+		$this->assertSame( $expected, $out );
+	}
+	
+	public function test_lib_given_not_existent_utils_file_return_empty_path() {
+		$out = lib( 'not-existent' );
+		$expected = '';
 		$this->assertSame( $expected, $out );
 	}
 	
@@ -27,7 +54,6 @@ class LoadersTest extends \PHPUnit_Framework_TestCase {
 	public function test_utils_given_no_parameters_throws_exception() {
 		$this->setExpectedException('GeneralException');
 		$out = utils( '', 'on' );
-		$expected = '';
 		$this->assertSame( $expected, $out );
 	}
 	
