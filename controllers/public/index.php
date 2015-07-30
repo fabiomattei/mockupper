@@ -10,7 +10,7 @@ class Aggregator extends PublicAggregator {
 	
 	public function getRequest() {
 		
-		
+		echo "ciao";
 		
 	}
 	

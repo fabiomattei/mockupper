@@ -1,5 +1,7 @@
 <?php
 
+define( 'RUNNINGENVIRONMENT', 'production' );
+
 // ERROR reporting
 ini_set('error_reporting', E_ALL);
 
