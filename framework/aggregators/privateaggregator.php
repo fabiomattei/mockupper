@@ -9,7 +9,7 @@ class PrivateAggregator {
 		$this->parameters = array();
 		
 		// messages block loaded by default from all pages
-		block( 'core', 'message/messages' );
+		block( 'template', 'message/messages' );
 		$this->messages = new Messages();
 		
 		$this->title                  = 'Mockupper :: Internal area';

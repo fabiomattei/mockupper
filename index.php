@@ -17,15 +17,13 @@ $parameters = array();
 
 if ( strlen( $request ) > 0 ) {
 	list( $family, $subfamily, $office, $parameters ) = spliturl( $request );
-echo "ciao1111";
+
 	controller( $family, $subfamily, $office );
 } else {
 	// redirecting to default aggregator set in the environment file
 	controller( FAMILY, SUBFAMILY, AGGREGATOR );
-	
-	echo "ciao333333";
 }
-echo "ciao2222";
-$office = new Aggregator();
-$office->setParameters( $parameters );
-$office->showPage();
+
+$controller = new Aggregator();
+$controller->setParameters( $parameters );
+$controller->showPage();
