@@ -8,6 +8,8 @@ if ( RUNNINGENVIRONMENT === 'production' AND $_SERVER['HTTPS'] === 'off' ) {
 	die();
 }
 
+// TODO check cron operations
+
 // remove the directory path we don't want
 $request1 = substr( $_SERVER['REQUEST_URI'], strlen( PATHTOAPP ) );
 $request2 = str_replace( '.html', '', $request1 );
