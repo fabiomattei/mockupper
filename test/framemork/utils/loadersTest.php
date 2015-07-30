@@ -1,7 +1,7 @@
 <?php
 
 define( 'TESTCASE', 'in test' );
-require_once 'settings.php';
+require_once 'test/testsettings.php';
 
 class LoadersTest extends \PHPUnit_Framework_TestCase {
 	

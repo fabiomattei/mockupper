@@ -18,10 +18,10 @@ $parameters = array();
 if ( strlen( $request ) > 0 ) {
 	list( $family, $subfamily, $office, $parameters ) = spliturl( $request );
 
-	office( $family, $subfamily, $office );
+	controller( $family, $subfamily, $office );
 } else {
 	// redirecting to default aggregator set in the environment file
-	office( FAMILY, SUBFAMILY, AGGREGATOR );
+	controller( FAMILY, SUBFAMILY, AGGREGATOR );
 }
 
 $office = new Aggregator();

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'settings.php';
+require_once 'test/testsettings.php';
 
 require_once 'framework/utils/hashcode.php';
 
