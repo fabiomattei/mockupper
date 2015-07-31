@@ -25,6 +25,8 @@ define('DBPASSWORD', '');
 define('BASEPATH', 'http://example.com/');
 define('PATHTOAPP', '/mockupper/');
 
+define('APPNAMEFORPAGETITLE', 'Mockupper');
+
 /* 
  * PREDIFINED LOCATOR
  * here you can set the file open by default when a general user is visiting the 

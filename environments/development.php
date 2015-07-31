@@ -23,6 +23,8 @@ define('DBPASSWORD', 'root');
 define('BASEPATH',  'http://localhost:8888/mockupper/');
 define('PATHTOAPP', '/mockupper/');
 
+define('APPNAMEFORPAGETITLE', 'Mockupper');
+
 /* 
  * PREDIFINED LOCATOR
  * here you can set the file open by default when a general user is visiting the 
