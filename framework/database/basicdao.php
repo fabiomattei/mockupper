@@ -53,7 +53,11 @@ class BasicDao {
 			# setting the fetch mode
 			$STH->setFetchMode(PDO::FETCH_OBJ);
 			$obj = $STH->fetch();
- 	   
+
+			if ( $obj == null ) {
+				$obj = $this->getEmpty();
+			}
+
 			return $obj;
 		}
 		catch(PDOException $e) {
@@ -223,48 +227,58 @@ class BasicDao {
 			throw new GeneralException('General malfuction!!!');
 		}
 	}
-	
-	public function getByFieldList( $fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none' ) {
-		$ids_string = ' (';
-		foreach ($ids as $id) {
-			$ids_string .= $id.', ';
-		}
-		$ids_string = substr( $ids_string, 0, -2 ); // cutting out last two caracters
-		$ids_string .= ') ';
-		
-		$filedslist = $this->organizeConditionsFields($conditionsfields);
-		
-		$requestedfieldlist = $this->organizeRequestedFields($requestedfields);
-		
-		$orderbyfieldlist = $this->organizeOrderByFields($orderby);
-		
-		try {
-			// building the query
-			$query = 'SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' ';
-			$query .= 'WHERE '.$fieldname.' IN '.$ids_string.' ';
-			if ( $filedslist != '' ) {
-				$query .= 'AND '.$filedslist;
-			}
-			$query .= $orderbyfieldlist;
 
-			$STH = $this->DBH->prepare( $query );
-			
-			foreach ($conditionsfields as $key => &$value) {
-				$STH->bindParam($key, $value);
-			}
-			
-			$STH->execute();
+    /**
+     * This funciton allows user to get a set of elements from a table.
+     *
+     * @param $fieldname                name of field that needs to be confronted with the array of ids
+     * @param $ids                      array of ids
+     * @param $conditionsfields
+     * @param string $orderby
+     * @param string $requestedfields
+     * @return array|PDOStatement
+     * @throws GeneralException
+     */
+    public function getByFieldList( $fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none' ) {
+        if ( count($ids) > 0 ) {
+            $ids_string = join( ',', $ids );
 		
-			# setting the fetch mode
-			$STH->setFetchMode(PDO::FETCH_OBJ);
+		    $filedslist = $this->organizeConditionsFields($conditionsfields);
+		
+		    $requestedfieldlist = $this->organizeRequestedFields($requestedfields);
+		
+		    $orderbyfieldlist = $this->organizeOrderByFields($orderby);
+		
+		    try {
+			    // building the query
+			    $query = 'SELECT '.$requestedfieldlist.' FROM '.$this::DB_TABLE.' ';
+			    $query .= 'WHERE '.$fieldname.' IN ('.$ids_string.') ';
+			    if ( $filedslist != '' ) {
+				    $query .= 'AND '.$filedslist;
+			    }
+			    $query .= $orderbyfieldlist;
+
+			    $STH = $this->DBH->prepare( $query );
+			
+			    foreach ($conditionsfields as $key => &$value) {
+				    $STH->bindParam($key, $value);
+			    }
+			
+		    	$STH->execute();
+		
+			    # setting the fetch mode
+			    $STH->setFetchMode(PDO::FETCH_OBJ);
  	   
-			return $STH;
-		}
-		catch(PDOException $e) {
-			$logger = new Logger();
-			$logger->write($e->getMessage(), __FILE__, __LINE__);
-			throw new GeneralException('General malfuction!!!');
-		}
+			    return $STH;
+		    }
+		    catch(PDOException $e) {
+			    $logger = new Logger();
+			    $logger->write($e->getMessage(), __FILE__, __LINE__);
+			    throw new GeneralException('General malfuction!!!');
+		    }
+        } else {
+            return array();
+        }
 	}
 	
 	/**
@@ -301,11 +315,11 @@ class BasicDao {
 			# setting the fetch mode
 			$STH->setFetchMode(PDO::FETCH_OBJ);
 			$obj = $STH->fetch();
-			
+
 			if ( $obj == null ) {
 				$obj = $this->getEmpty();
 			}
- 	   
+
 			return $obj;
 		}
 		catch(PDOException $e) {
