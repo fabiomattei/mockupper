@@ -17,6 +17,7 @@ class PrivateAggregator {
 		$this->topcontainer           = array();
 		$this->messagescontainer      = array( $this->messages );
 		$this->leftcontainer          = array();
+		$this->rightcontainer         = array();
 		$this->centralcontainer       = array();
 		$this->secondcentralcontainer = array();
 		$this->thirdcentralcontainer  = array();
