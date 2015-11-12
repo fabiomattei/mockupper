@@ -18,14 +18,17 @@ $request  = str_replace( '.pdf', '', $request2 );
 $parameters = array();
 
 if ( strlen( $request ) > 0 ) {
-	list( $family, $subfamily, $office, $parameters ) = spliturl( $request );
+	list( $family, $subfamily, $aggregator, $parameters ) = spliturl( $request );
 
-	controller( $family, $subfamily, $office );
+	$returned_action = controller( $family, $subfamily, $aggregator );
 } else {
-	// redirecting to default aggregator set in the environment file
-	controller( FAMILY, SUBFAMILY, AGGREGATOR );
+	$returned_action = controller( FAMILY, SUBFAMILY, AGGREGATOR );
 }
 
-$controller = new Aggregator();
-$controller->setParameters( $parameters );
-$controller->showPage();
+if ( class_exists( $returned_action ) ) {
+	$aggregator = new $returned_action();
+} else {
+	$aggregator = new Aggregator();
+}
+$aggregator->setParameters( $parameters );
+$aggregator->showPage();
