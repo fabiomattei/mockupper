@@ -479,8 +479,26 @@ function make_url( $group = 'main', $action = '', $parameters = '', $extension =
  *
  * @return       string     The url well formed
  */
-function make_link( $text, $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
-	return '<a href="'.make_url($group, $action, $parameters, $extension).'">'.$text.'</a>';
-}
+function make_link( $text, $group = 'main', $action = '', $args = '' ) {
+	// default values
+	$class_string = '';
+	$parameters_string = '';
+	$extension_string = '.html';
+	$onclick_string = '';
 
+	// checking if args array contains any value that override the default value
+	if ( is_array( $args ) ) {
+		if ( isset( $args['class'] ) ) {
+			$class_string = ' class="'.$args['class'].'" ';
+		}
+		if ( isset( $args['parameters'] ) ) {
+			$parameters_string = $args['parameters'];
+		}
+		if ( isset( $args['onclick'] ) ) {
+			$onclick_string = 'onclick="'.$args['onclick'].'"';
+		}
+	}
+
+	return '<a href="'.make_url($group, $action, $parameters_string, $extension_string).'" '.$class_string.' '.$onclick_string.'>'.$text.'</a>';
+}
 
