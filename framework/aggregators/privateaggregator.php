@@ -27,6 +27,8 @@ class PrivateAggregator {
 		
 		$this->addToHead = '';
 		$this->addToFoot = '';
+
+        $this->loadlinks();
 		
 		if (!$this->isSessionValid()) {
 			header('Location: '.BASEPATH.'public/login.html');
@@ -158,6 +160,20 @@ class PrivateAggregator {
 				$this->addToHead .= $container->addToHead();
 				$this->addToFoot .= $container->addToFoot();
 			}
+		}
+	}
+
+	/**
+	 * Load links directory from a file
+	 */
+	function loadlinks() {
+
+		if ( !isset( $_SESSION['office'] ) ) throw new GeneralException('Office has not been set!!!');
+
+		$filepath = 'controllers/'.$_SESSION['office'].'/links.php';
+
+		if ( file_exists( $filepath ) ) {
+			require_once $filepath;
 		}
 	}
 	
