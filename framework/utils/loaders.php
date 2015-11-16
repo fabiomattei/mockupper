@@ -495,7 +495,7 @@ function make_link( $text, $group = 'main', $action = '', $args = '' ) {
 			$parameters_string = $args['parameters'];
 		}
 		if ( isset( $args['onclick'] ) ) {
-			$onclick_string = 'onclick="'.$args['onclick'].'"';
+			$onclick_string = 'onclick="return confirm(\''.$args['onclick'].'\')"';
 		}
 	}
 
