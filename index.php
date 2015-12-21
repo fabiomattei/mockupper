@@ -13,7 +13,8 @@ if ( RUNNINGENVIRONMENT === 'production' AND $_SERVER['HTTPS'] === 'off' ) {
 // remove the directory path we don't want
 $request1 = substr( $_SERVER['REQUEST_URI'], strlen( PATHTOAPP ) );
 $request2 = str_replace( '.html', '', $request1 );
-$request  = str_replace( '.pdf', '', $request2 );
+$request3 = str_replace( '.pdf', '', $request2 );
+$request  = preg_replace( '/\?.*/', '', $request3 );
 
 $parameters = array();
 
