@@ -501,4 +501,3 @@ function make_link( $text, $group = 'main', $action = '', $args = '' ) {
 
 	return '<a href="'.make_url($group, $action, $parameters_string, $extension_string).'" '.$class_string.' '.$onclick_string.'>'.$text.'</a>';
 }
-

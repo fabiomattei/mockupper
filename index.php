@@ -22,14 +22,24 @@ if ( strlen( $request ) > 0 ) {
 	list( $family, $subfamily, $aggregator, $parameters ) = spliturl( $request );
 
 	$returned_action = controller( $family, $subfamily, $aggregator );
+
+    if ( class_exists( $returned_action ) ) {
+        $controller = new $returned_action();
+    } else {
+        $controller = new Aggregator();
+    }
+    $controller->setParameters( $parameters );
+    $controller->setRequest( $request );
+    $controller->setControllerPath( $family, $subfamily, $aggregator );
 } else {
-	$returned_action = controller( FAMILY, SUBFAMILY, AGGREGATOR );
+    $returned_action = controller( FAMILY, SUBFAMILY, AGGREGATOR );
+
+    $controller = new $returned_action();
+    $controller->setParameters( $parameters );
+    $controller->setRequest( $request );
+    $controller->setControllerPath( FAMILY, SUBFAMILY, AGGREGATOR );
 }
 
-if ( class_exists( $returned_action ) ) {
-	$aggregator = new $returned_action();
-} else {
-	$aggregator = new Aggregator();
-}
-$aggregator->setParameters( $parameters );
-$aggregator->showPage();
+
+$controller->showPage();
+

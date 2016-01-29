@@ -12,7 +12,7 @@ class GeneralException extends Exception {
 
 function generalExceptionHandler($exception) {
 	// echo $exception;
-	header('Location: '.BASEPATH.'errorpage.html');
+	header( 'Location: '.BASEPATH );
 	die();
 }
 

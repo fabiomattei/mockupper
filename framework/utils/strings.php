@@ -120,3 +120,7 @@ function clear_string( $str ) {
 
     return $out;
 }
+
+function truncate_string($string, $length, $dots = '&hellip;') {
+    return (strlen($string) > $length) ? substr($string, 0, $length) . $dots : $string;
+}

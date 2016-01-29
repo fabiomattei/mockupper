@@ -88,6 +88,28 @@ class PublicAggregator {
 			$this->parameters = $parameters;
 		}
 	}
+
+    /**
+     * Saving the request made to webserver
+     *
+     * @param $request STRING containing URL complete of parameters
+     */
+	public function setRequest( $request ) {
+		$this->request = $request;
+	}
+
+    /**
+     * Saving URL controller PATH in the controller
+     *
+     * @param $family      STRING coming from URL slicing
+     * @param $subfamily   STRING coming from URL slicing
+     * @param $aggregator  STRING coming from URL slicing
+     */
+    public function setControllerPath( $family, $subfamily, $aggregator ) {
+        $this->family = $family;
+        $this->subfamily = $subfamily;
+        $this->aggregator = $aggregator;
+    }
 	
 	// taken from page script
 	function loadTemplate() {
