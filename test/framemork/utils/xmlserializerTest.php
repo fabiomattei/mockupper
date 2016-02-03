@@ -33,7 +33,7 @@ class XMLSerializerTest extends \PHPUnit_Framework_TestCase {
 	}	
 
 	// booooo
-	public function test_object_naming_nodes_lala() {
+	public function test_object_naming_nodes_with_node_name() {
 		$input        = new stdClass;
 		$input->id    = 42;
 		$input->{'1'} = 'twelve';
@@ -69,7 +69,7 @@ class XMLSerializerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( $exp, XMLSerializer::generateValidXmlFromArray($input, 'mynodes') );
 	}
 
-	public function test_array_naming_nodes_lala() {
+	public function test_array_naming_nodes_with_node_name() {
 		$input         = array();
 		$input['id']   = 42;
 		$input['12']   = 'twelve';

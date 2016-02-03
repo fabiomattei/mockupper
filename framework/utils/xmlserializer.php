@@ -21,15 +21,18 @@ class XMLSerializer {
      * The node_name parameter make a sobstitution for each field that has a numeric name with 
      * the node_name string as TAG.
      * EX.
+     *
+     * XMLSerializer::generateValidXmlFromObj($input, 'mynodes', 'tagname')
+     * 
      * $input       = new stdClass;
      * $input->id   = 42;
      * $input->name = 'hello';
      *
      * <?xml version="1.0" encoding="UTF-8" ?>
-     * <nodes>
+     * <mynodes>
      * <id>42</id>
-     * <name>hello</name>
-     * </nodes>
+     * <tagname>twelve</tagname>
+     * </mynodes>
      * 
      * @param  stdClass      obj
      * @param  string        node_block
@@ -55,15 +58,18 @@ class XMLSerializer {
      * The node_name parameter make a sobstitution for each field that has a numeric name with 
      * the node_name string as TAG.
      * EX.
+     *
+     * XMLSerializer::generateValidXmlFromArray($input, 'mynodes', 'tagname')
+     * 
      * $input         = array();
      * $input['id']   = 42;
      * $input['12']   = 'twelve';
      *
      * <?xml version="1.0" encoding="UTF-8" ?>
-     * <nodes>
+     * <mynodes>
      * <id>42</id>
-     * <name>hello</name>
-     * </nodes>
+     * <tagname>twelve</tagname>
+     * </mynodes>
      * 
      * @param  stdClass      obj
      * @param  string        node_block
