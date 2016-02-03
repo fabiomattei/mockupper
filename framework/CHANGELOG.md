@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- XMLSerializer that allows to serialize objacets and array to a plain XML structure
 
 ## 0.0.3 - 2016-01-29
 ### Added
