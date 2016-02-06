@@ -10,10 +10,10 @@ class BasicDao {
     const DB_TABLE_UPDATED_FIELD_NAME = 'abstract';
     const DB_TABLE_CREATED_FLIED_NAME = 'abstract';
 
-    function __construct( $pdo = '' ) {
-        // if no database connection has been passed I try to make a new connection through the 
+    function __construct( $PDO = '' ) {
+        // if no database connection has been passed I try to make a new connection through the
         // values in the settings
-        if ($pdo == '') { 
+        if ($PDO == '') {
             try {
                 $this->DBH = new PDO(DBHOST . DBNAME, DBUSERNAME, DBPASSWORD);
                 $this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -24,7 +24,7 @@ class BasicDao {
             }
         } else {
             // I can use the passed connection
-            this->DBH = $PDO;
+            $this->DBH = $PDO;
         }
     }
 
@@ -60,7 +60,7 @@ class BasicDao {
 
     /**
      * It Get the row with the selected id
-     * if no corresponding row is found it gives the empty object 
+     * if no corresponding row is found it gives the empty object
      * calling the getEmpty method (null object).
      */
     function getById($id) {
@@ -93,7 +93,7 @@ class BasicDao {
      *
      * @param $fields :: array of fields to insert
      *
-     * EX. 
+     * EX.
      * array( 'field1' => 'content field 1', 'field2', 'content field 2' );
      */
     function insert($fields) {
@@ -127,10 +127,10 @@ class BasicDao {
     /**
      * This function updates a single row of the delared table.
      * It uptades the row haveing id = $id
-     * @param $id :: integer id 
-     * @param $fields :: array of fields to update 
+     * @param $id :: integer id
+     * @param $fields :: array of fields to update
      * Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
-     * 
+     *
      */
     function update($id, $fields) {
         $presentmoment = date('Y-m-d H:i:s', time());
@@ -157,14 +157,14 @@ class BasicDao {
     /**
      * This method allow to update many rows of a single table at the same time
      *
-     * @param $$conditionsfields :: array of fields to put in where clause 
+     * @param $$conditionsfields :: array of fields to put in where clause
      * $tododao->getByFields( array( 'open' => '0' ) );
      * this will get all the row having the field open = 0
      *
      * you can set more then a search parameter (evaluated in AND)
      * $tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
      *
-     * @param $fields :: array of fields to update 
+     * @param $fields :: array of fields to update
      * Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
      */
     function updateByFields($conditionsfields, $fields) {
@@ -203,7 +203,7 @@ class BasicDao {
      *
      * $tododao->delete( 15 );
      * this will delete the row having the primary key set to 15.
-     * 
+     *
      * Remeber that you need to set the primary key in the tabledao.php file
      * in a costant named DB_TABLE_PK
      *
@@ -228,7 +228,7 @@ class BasicDao {
      *
      * $tododao->delete( array( 'open' => '0', 'handling' => '1' ) );
      * this will delete the row having the field open set to 0 and the field handling set to 1.
-     * 
+     *
      * Remeber that you need to set the table name in the tabledao.php file
      * in a costant named DB_TABLE
      *
@@ -595,7 +595,7 @@ class BasicDao {
             } else {
                 return '';
             }
-            
+
         } catch (PDOException $e) {
             $logger = new Logger();
             $logger->write($e->getMessage(), __FILE__, __LINE__);
