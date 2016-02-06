@@ -10,8 +10,10 @@ class BasicDao {
     const DB_TABLE_UPDATED_FIELD_NAME = 'abstract';
     const DB_TABLE_CREATED_FLIED_NAME = 'abstract';
 
-    function __construct($setting = '') {
-        if ($setting != 'test') { // I check that in order to avoid initialization during testing
+    function __construct( $pdo = '' ) {
+        // if no database connection has been passed I try to make a new connection through the 
+        // values in the settings
+        if ($pdo == '') { 
             try {
                 $this->DBH = new PDO(DBHOST . DBNAME, DBUSERNAME, DBPASSWORD);
                 $this->DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -20,16 +22,30 @@ class BasicDao {
                 $logger->write($e->getMessage(), __FILE__, __LINE__);
                 throw new GeneralException('General malfuction!!!');
             }
+        } else {
+            // I can use the passed connection
+            this->DBH = $PDO;
         }
     }
 
     /**
-     * Setter made for testing purpose
+     * Setter method for database connection
      */
     public function setPDO($PDO) {
         $this->DBH = $PDO;
     }
 
+    /**
+     * Database connection getter
+     * I can use the already made connection for next database call
+     */
+    public function getPDO() {
+        return $this->DBH;
+    }
+
+    /**
+     * It gets all rows contained in a table
+     */
     function getAll() {
         try {
             $STH = $this->DBH->query('SELECT * FROM ' . $this::DB_TABLE);
@@ -42,6 +58,11 @@ class BasicDao {
         }
     }
 
+    /**
+     * It Get the row with the selected id
+     * if no corresponding row is found it gives the empty object 
+     * calling the getEmpty method (null object).
+     */
     function getById($id) {
         try {
             $STH = $this->DBH->prepare('SELECT * from ' . $this::DB_TABLE . ' WHERE ' . $this::DB_TABLE_PK . ' = :id');
@@ -64,6 +85,17 @@ class BasicDao {
         }
     }
 
+    /**
+     * Insert a row in the database.
+     * Set the updated and created fields to current date and time
+     * It accpts an array containing as key the field name and as value
+     * the field content.
+     *
+     * @param $fields :: array of fields to insert
+     *
+     * EX. 
+     * array( 'field1' => 'content field 1', 'field2', 'content field 2' );
+     */
     function insert($fields) {
         $presentmoment = date('Y-m-d H:i:s', time());
 
@@ -96,7 +128,8 @@ class BasicDao {
      * This function updates a single row of the delared table.
      * It uptades the row haveing id = $id
      * @param $id :: integer id 
-     * @param $fields :: array of fields to update Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
+     * @param $fields :: array of fields to update 
+     * Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
      * 
      */
     function update($id, $fields) {
