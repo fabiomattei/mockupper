@@ -1,0 +1,29 @@
+name: requestforid
+version: 1
+states:
+	- operatore:   Utente
+      state:       [Creato, In lavorazione, Spedito]
+      expiration:  nessuna
+      form:        form1.html
+      destination: Ufficio Anagrafe
+	  
+    - operatore:       Ufficio Anagrafe
+	  state:           [Ricevuto, In lavorazione, Validazione, Spedito, Congelato]
+	  stateexpiration: [30 days, 20days, 10 days, 20 days, 10 days]
+      expiration:      30 giorni
+      form:            form-a.md [expires on: 30 Marzo 2016]
+	  form:            form-av2.md [expires on: 30 Marzo 2016]
+	  form:            form-av3.md [expires on: 30 Marzo 2016]
+	  form:            form-av4.md [expires on: 30 Marzo 2016]
+	  form:            form-av5.md
+      destination:     Ufficio Acqua pubblica
+	  destination_cc:  Ufficio Protocollare
+	  
+    - operatore:   Ufficio Acqua pubblica
+	  state:       [Ricevuto, In lavorazione, Validazione, Spedito, Congelato]
+      expiration:  60 giorni
+      form:        form3.html
+	  appendix_1:  form-a.md
+	  appendix_2:  form-b.html
+	  appendix_3:  form-c.html
+      destination: Ufficio Sindaco

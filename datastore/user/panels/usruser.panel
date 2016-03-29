@@ -1,0 +1,16 @@
+#User
+
+name = ___[50]
+familyname = ___[50]
+
+###### Radio buttons
+gender = (x) male () female
+
+###### Checkboxes
+phones = [] Android [x] iPhone [x] Blackberry
+
+###### Drop down
+city = {BOS, SFO, (NYC)}
+
+###### Required fields
+zip code* = ___
