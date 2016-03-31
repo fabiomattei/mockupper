@@ -1,0 +1,17 @@
+#User
+
+id = ___[INT,HIDDEN;usr_id;required|number]
+name = ___[50]
+familyname = ___[VARCHAR;INPUT;usr_name;required|max_len,80|min_len,4]
+
+###### Radio buttons
+gender = (x) male () female [VARCHAR;INPUT;usr_name;required|max_len,80|min_len,4]
+
+###### Checkboxes
+phones = [] Android [x] iPhone [x] Blackberry [VARCHAR;INPUT;usr_name;required|max_len,80|min_len,4]
+
+###### Drop down
+city = {BOS, SFO, (NYC)} [VARCHAR;INPUT;usr_name;required|max_len,80|min_len,4]
+
+###### Required fields
+zip code* = ___ [VARCHAR;INPUT;usr_name;required|max_len,80|min_len,4]

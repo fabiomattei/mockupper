@@ -11,7 +11,7 @@ states:
 	  state:           [Ricevuto, In lavorazione, Validazione, Spedito, Congelato]
 	  stateexpiration: [30 days, 20days, 10 days, 20 days, 10 days]
       expiration:      30 giorni
-      form:            form-a.md [expires on: 30 Marzo 2016]
+      form:            form-a.md   [expires on: 30 Marzo 2016]
 	  form:            form-av2.md [expires on: 30 Marzo 2016]
 	  form:            form-av3.md [expires on: 30 Marzo 2016]
 	  form:            form-av4.md [expires on: 30 Marzo 2016]
