@@ -4,9 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+
+## 0.0.4 - 2016-05-11
+### Added
 - XMLSerializer that allows to serialize objacets and array to a plain XML structure
 - Paperworks loader
 - Paperflows loader
+- support for multilanguage
 
 ## 0.0.3 - 2016-01-29
 ### Added
