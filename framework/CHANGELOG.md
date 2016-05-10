@@ -14,11 +14,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.0.3 - 2016-01-29
 ### Added
-- Added function getOneField to base Dao class it allows user to get one field from a table
-
-## 0.0.3 - 2016-01-29
-### Added
 - New function on string utils in order to truncate strings that are too long
+- Added function getOneField to base Dao class it allows user to get one field from a table
 ### Fixed
 - Modifying index.php in order to delete everitingh after the ? in the url.
 
