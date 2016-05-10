@@ -3,6 +3,7 @@
 class PublicAggregator {
 	
 	public function __construct() {
+		session_start();
 		
 		// setting an array containing all parameters
 		$this->parameters = array();
@@ -138,6 +139,18 @@ class PublicAggregator {
 				$this->addToFoot .= $container->addToFoot();
 			}
 		}
+	}
+
+	function get_selected_language() {
+		if ( isset( $_SESSION['HTTP_ACCEPT_LANGUAGE'] ) ) {
+			return $_SESSION['HTTP_ACCEPT_LANGUAGE'];
+		} else {
+			return $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		}
+	}
+
+	function set_selected_language( $HTTP_ACCEPT_LANGUAGE ) {
+		$_SESSION['HTTP_ACCEPT_LANGUAGE'] == $HTTP_ACCEPT_LANGUAGE;
 	}
 	
 }
