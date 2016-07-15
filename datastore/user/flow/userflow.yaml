@@ -27,3 +27,23 @@ states:
 	  appendix_2:  form-b.html
 	  appendix_3:  form-c.html
       destination: Ufficio Sindaco
+	  
+	  
+id     documento      data     creato da
+1      GSR
+2      Hazard report
+3      ......
+
+
+document handler GSR        [In lavorazione]
+GSR1
+GSR corretto
+GSR CORRETTO 2 ecc. ecc.
+
+
+document handler Hazard
+Hazard report
+Hazard report corretto
+Hazard report CORRETTO 2 ecc. ecc.
+
+
