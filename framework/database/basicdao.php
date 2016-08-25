@@ -157,7 +157,7 @@ class BasicDao {
     /**
      * This method allow to update many rows of a single table at the same time
      *
-     * @param $$conditionsfields :: array of fields to put in where clause
+     * @param $conditionsfields :: array of fields to put in where clause
      * $tododao->getByFields( array( 'open' => '0' ) );
      * this will get all the row having the field open = 0
      *

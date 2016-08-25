@@ -154,7 +154,78 @@ function dao_exp( $datastore, $path ) {
  		$logger->write( 'ERROR: -dao- file dose not exists: '.$filepath );
 
  	}
- }
+}
+
+/**
+ * Load an paperwork file.
+ * Paperworks are associated to a posttype, in effect they all are contained
+ * in a folder named "paperworks" inside the postype folder.
+ * If the paperwork file is not found the systems writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
+ */
+function paperwork( $datastore, $path ) {
+
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+
+	$filepath = 'datastore/'.$datastore.'/paperworks/'.strtolower($path).'.php';
+
+	if ( TESTMODE == 'on' ) return $filepath;
+
+	if ( file_exists( $filepath ) ) {
+
+ 	    require_once $filepath;
+ 	    if (class_exists($path)) {
+    		return new $path();
+		} else {
+			require_once( 'framework/paperworks/basicpaper.php' );
+			return new BasicPaper();
+		}
+
+ 	} else {
+
+ 		require_once( 'framework/paperworks/basicpaper.php' );
+		return new BasicPaper();
+
+ 	}
+}
+
+/**
+ * Load an paperflow file.
+ * Paperflows tell us what is the path (flow) of the paper inside the system.
+ * If the paperflow file is not found the systems writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
+ */
+function paperflow( $datastore, $path ) {
+
+	$filepath = 'datastore/'.$datastore.'/paperflows/'.strtolower($path).'.php';
+
+	if ( TESTMODE == 'on' ) return $filepath;
+
+	if ( file_exists( $filepath ) ) {
+
+ 	    require_once $filepath;
+ 	    if (class_exists($path)) {
+    		return new $path();
+		}else {
+			require_once( 'framework/paperworks/basicflow.php' );
+			return new BasicFlow();
+		}
+
+ 	} else {
+
+ 		require_once( 'framework/paperworks/basicflow.php' );
+		return new BasicFlow();
+
+ 	}
+}
 
 /**
  * Load an helper file.
@@ -284,6 +355,39 @@ function exporter( $datastore, $path ) {
 
 		$logger = new Logger();
 		$logger->write( 'ERROR: -exporters- file dose not exists: '.$filepath );
+
+	}
+}
+
+/**
+ * Load an exporter file.
+ * exporters are associated to a datastore, in effect they all are contained
+ * in a folder named "exporters" inside the datastore folder.
+ * If the exporter file is not found the systems writes an ERROR message in the log
+ *
+ * @param        string     datastore name
+ * @param        string     path concatenated to file name
+ *
+ * @return       string     Just for testing purpose
+ */
+function model( $datastore, $path ) {
+
+	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+
+	$filepath = 'datastore/'.$datastore.'/model/'.$path.'.php';
+
+	if ( TESTMODE == 'on' ) return $filepath;
+
+	if ( file_exists( $filepath ) ) {
+
+	    require_once $filepath;
+
+	} else {
+
+		if ( TESTMODE == 'on' ) return '';
+
+		$logger = new Logger();
+		$logger->write( 'ERROR: -model- file dose not exist: '.$filepath );
 
 	}
 }
@@ -435,6 +539,12 @@ function controller( $folder, $subfolder, $action ) {
 function private_aggregator() {
 	if ( !class_exists( 'PrivateAggregator' ) ) {
 		require_once 'framework/aggregators/privateaggregator.php';
+	}
+}
+
+function public_aggregator() {
+	if ( !class_exists( 'PublicAggregator' ) ) {
+		require_once 'framework/aggregators/publicaggregator.php';
 	}
 }
 
