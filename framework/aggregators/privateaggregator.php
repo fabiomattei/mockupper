@@ -1,6 +1,13 @@
 <?php
 
+require_once 'framework/libs/gump/gump.class.php';
+
 class PrivateAggregator {
+
+    public $get_validation_rules = array();
+    public $get_filter_rules = array();
+    public $post_validation_rules = array();
+    public $post_filter_rules = array();
 
     public function __construct() {
         session_start();
@@ -46,6 +53,12 @@ class PrivateAggregator {
             $this->messages->success = $_SESSION['msgsuccess'];
             unset($_SESSION['msgsuccess']);
         }
+        if (isset($_SESSION['flashvariable'])) {
+            $this->flashvariable = $_SESSION['flashvariable'];
+            unset($_SESSION['flashvariable']);
+        }
+
+        $this->gump = new GUMP();
 
         if (!$this->isSessionValid()) {
             header('Location: ' . BASEPATH . 'public/login.html');
@@ -75,12 +88,69 @@ class PrivateAggregator {
         echo 'not implemented yet';
     }
 
+    /**
+     * check the parameters sent through the url and check if they are ok from
+     * the point of view of the validation rules
+     */
+    public function check_get_request() {
+        if ( count( $this->get_validation_rules ) == 0 ) {
+            return true;
+        } else {
+            $parms = $this->gump->sanitize($this->parameters);
+            $this->gump->validation_rules( $this->get_validation_rules );
+            $this->gump->filter_rules( $this->get_filter_rules );
+            $this->parameters = $this->gump->run( $parms );
+            if ( $this->parameters === false ) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * check the parameters sent through the url and check if they are ok from
+     * the point of view of the validation rules
+     */
+    public function check_post_request() {
+        if ( count( $this->post_validation_rules ) == 0 ) {
+            return true;
+        } else {
+            $parms = $this->gump->sanitize( $_POST );
+            $this->gump->validation_rules( $this->post_validation_rules );
+            $this->gump->filter_rules( $this->post_filter_rules );
+            $this->parameters = $this->gump->run( $parms );
+            if ( $this->parameters === false ) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public function show_get_error_page() {
+        throw new GeneralException('General malfuction!!!');
+    }
+
+    public function show_post_error_page() {
+        throw new GeneralException('General malfuction!!!');
+    }
+
     public function showPage() {
         $time_start = microtime(true);
+
         if ($this->isGetRequest()) {
-            $this->getRequest();
+            if ( $this->check_get_request() ) {
+                $this->getRequest();
+            } else {
+                $this->show_get_error_page();
+            }
         } else {
-            $this->postRequest();
+            if ( $this->check_post_request() ) {
+                $this->postRequest();
+            } else {
+                $this->show_post_error_page();
+            }
         }
 
         $this->loadTemplate();
@@ -144,6 +214,30 @@ class PrivateAggregator {
         $this->messages->setWarning($warning);
     }
 
+    /**
+     * This method give to the programmer the possibility of setting a flashvariable, a 
+     * variable that will be active up the the next call.
+     * This is ment to be used for instance to send variable from a GET form request to a 
+     * Post form request or in any case a variable is meant to last only to the next browser
+     * request.
+     * The variable as not a specific type, maybe it is better to use it with strings
+     * 
+     * @param [string] $flashvariable [variable that last for a request in the same session]
+     */
+    function setFlashVariable($flashvariable) {
+        $_SESSION['flashvariable'] = $flashvariable;
+    }
+
+    /**
+     * This method return a variable set in the prevoius broser request.
+     * To have a better understanging look at setFlashVariable description
+     * 
+     * @return [string] [variable that last for a request in the same session]
+     */
+    function getFlashVariable() {
+        return $this->flashvariable;
+    }
+
     /*     * * functions for setting parameters array */
 
     public function setParameters($parameters) {
@@ -179,6 +273,8 @@ class PrivateAggregator {
             $_SESSION['msgerror'] = $this->messages->error;
         if ($this->messages->success != '')
             $_SESSION['msgsuccess'] = $this->messages->success;
+        if (isset($this->flashvariable) AND $this->flashvariable != '')
+            $_SESSION['flashvariable'] = $this->flashvariable;
         header('Location: ' . BASEPATH . $_SESSION['prevrequest']);
     }
 
@@ -195,6 +291,8 @@ class PrivateAggregator {
             $_SESSION['msgerror'] = $this->messages->error;
         if ($this->messages->success != '')
             $_SESSION['msgsuccess'] = $this->messages->success;
+        if (isset($this->flashvariable) AND $this->flashvariable != '')
+            $_SESSION['flashvariable'] = $this->flashvariable;
         header('Location: ' . BASEPATH . $_SESSION['prevprevrequest']);
     }
 
@@ -212,6 +310,8 @@ class PrivateAggregator {
             $_SESSION['msgerror'] = $this->messages->error;
         if ($this->messages->success != '')
             $_SESSION['msgsuccess'] = $this->messages->success;
+        if (isset($this->flashvariable) AND $this->flashvariable != '')
+            $_SESSION['flashvariable'] = $this->flashvariable;
         header( 'Location: ' . make_url($group, $action, $parameters, $extension) );
     }
 
