@@ -152,5 +152,29 @@ class PublicAggregator {
 	function set_selected_language( $HTTP_ACCEPT_LANGUAGE ) {
 		$_SESSION['HTTP_ACCEPT_LANGUAGE'] == $HTTP_ACCEPT_LANGUAGE;
 	}
-	
+
+    /**
+     * Redirect the script to a selected page
+     * it creates the url using the library function make_url form loaders.php
+     * It send flash messages to new controller [info, warning, error, success]
+     */
+    public function redirectToPage($group = 'main', $action = '', $parameters = '', $extension = '.html') {
+        if ( APPTESTMODE != 'on' ) {
+            header( 'Location: ' . make_url( $group, $action, $parameters, $extension ) );
+            die();
+        }
+    }
+
+    /**
+     * Redirect the script to a selected page
+     * it creates the url using the library function make_url form loaders.php
+     * It send flash messages to new controller [info, warning, error, success]
+     */
+    public function redirectToCompleteUrl($office = 'public', $group = 'main', $action = '', $parameters = '', $extension = '.html') {
+        if ( APPTESTMODE != 'on' ) {
+            header( 'Location: ' . make_complete_url( $office, $group, $action, $parameters, $extension ) );
+            die();
+        }
+    }
+
 }

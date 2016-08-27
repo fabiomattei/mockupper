@@ -577,6 +577,34 @@ function make_url( $group = 'main', $action = '', $parameters = '', $extension =
 }
 
 /**
+ * It creates a complete URL
+ *
+ * Result is: BASEPATH . $office . $final_part
+ *
+ * @param        string     Group
+ * @param        string     Action
+ * @param        string     Parameters: string containing all parameters separated by '/'
+ * @param        string     Extension:  .html by default
+ *
+ * @return       string     The url well formed
+ */
+function make_complete_url( $office = 'public', $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
+
+    if ( $group == 'main' AND $action == '' ) {
+        return BASEPATH;
+    }
+    if ( $group != 'main' AND $action == '' ) {
+        return BASEPATH.$office.'-'.$group.'/index.html';
+    }
+    if ( $group == 'main' ) {
+        return BASEPATH.$office.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+    } else {
+        return BASEPATH.$office.'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+    }
+
+}
+
+/**
  * It creates a link using the make_url function
  *
  * Result is: BASEPATH . $_SESSION['office'] . $final_part
