@@ -2,7 +2,7 @@
 
 require_once 'framework/aggregators/publicaggregator.php';
 
-class Aggregator extends PublicAggregator {
+class Public__Index extends PublicAggregator {
 	
     public function __construct() {
         parent::__construct();

@@ -10,7 +10,7 @@ define ( 'TESTMODE', 'off' );
 define ( 'APPTESTMODE', 'off' );
 
 // database
-define('DBHOST', 'mysql:host=127.0.0.1:8889;dbname=');
+define('DBHOST', 'mysql:host=127.0.0.1:3306;dbname=');
 define('DBNAME', 'todo');
 define('DBUSERNAME', 'root');
 define('DBPASSWORD', 'root');
@@ -20,7 +20,7 @@ define('DBPASSWORD', 'root');
  * BASEPATH: the base URL where the web application is installed
  * PATHTOAPP: it is the eventual subfolder where the application is installed
  */
-define('BASEPATH',  'http://localhost:8888/mockupper/');
+define('BASEPATH',  'http://localhost/mockupper/');
 define('PATHTOAPP', '/mockupper/');
 
 define('APPNAMEFORPAGETITLE', 'Mockupper');
@@ -32,7 +32,7 @@ define('APPNAMEFORPAGETITLE', 'Mockupper');
  */
 define('FAMILY',     'public');
 define('SUBFAMILY',  '');
-define('AGGREGATOR', 'index');
+define('AGGREGATOR', 'login');
 
 /* 
  * PREDIFINED TEMPLATES FILES
