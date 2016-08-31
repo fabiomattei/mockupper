@@ -1,6 +1,11 @@
 <?php
 
 class PublicAggregator {
+
+	public $get_validation_rules = array();
+    public $get_filter_rules = array();
+    public $post_validation_rules = array();
+    public $post_filter_rules = array();
 	
 	public function __construct() {
 		session_start();
@@ -48,14 +53,71 @@ class PublicAggregator {
 	public function postRequest() {
 		echo 'not implemented yet';
 	}
+
+	/**
+     * check the parameters sent through the url and check if they are ok from
+     * the point of view of the validation rules
+     */
+    public function check_get_request() {
+        if ( count( $this->get_validation_rules ) == 0 ) {
+            return true;
+        } else {
+            $parms = $this->gump->sanitize($this->parameters);
+            $this->gump->validation_rules( $this->get_validation_rules );
+            $this->gump->filter_rules( $this->get_filter_rules );
+            $this->parameters = $this->gump->run( $parms );
+            if ( $this->parameters === false ) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * check the parameters sent through the url and check if they are ok from
+     * the point of view of the validation rules
+     */
+    public function check_post_request() {
+        if ( count( $this->post_validation_rules ) == 0 ) {
+            return true;
+        } else {
+            $parms = $this->gump->sanitize( $_POST );
+            $this->gump->validation_rules( $this->post_validation_rules );
+            $this->gump->filter_rules( $this->post_filter_rules );
+            $this->parameters = $this->gump->run( $parms );
+            if ( $this->parameters === false ) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public function show_get_error_page() {
+        throw new GeneralException('General malfuction!!!');
+    }
+
+    public function show_post_error_page() {
+        throw new GeneralException('General malfuction!!!');
+    }
 	
 	public function showPage() {
 		$time_start = microtime(true); 
+		
 		if ($this->isGetRequest()) {
-			$this->getRequest();
-		} else {
-			$this->postRequest();
-		}
+            if ( $this->check_get_request() ) {
+                $this->getRequest();
+            } else {
+                $this->show_get_error_page();
+            }
+        } else {
+            if ( $this->check_post_request() ) {
+                $this->postRequest();
+            } else {
+                $this->show_post_error_page();
+            }
+        }
 		
 		$this->loadTemplate();
 		
