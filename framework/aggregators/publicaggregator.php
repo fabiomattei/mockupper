@@ -54,7 +54,7 @@ class PublicAggregator {
 		echo 'not implemented yet';
 	}
 
-	/**
+    /**
      * check the parameters sent through the url and check if they are ok from
      * the point of view of the validation rules
      */
@@ -66,7 +66,9 @@ class PublicAggregator {
             $this->gump->validation_rules( $this->get_validation_rules );
             $this->gump->filter_rules( $this->get_filter_rules );
             $this->parameters = $this->gump->run( $parms );
+			$this->unvalidated_parameters = $parms;
             if ( $this->parameters === false ) {
+				$this->readableErrors = $this->gump->get_readable_errors(true);
                 return false;
             } else {
                 return true;
@@ -86,7 +88,9 @@ class PublicAggregator {
             $this->gump->validation_rules( $this->post_validation_rules );
             $this->gump->filter_rules( $this->post_filter_rules );
             $this->parameters = $this->gump->run( $parms );
+			$this->unvalidated_parameters = $parms;
             if ( $this->parameters === false ) {
+				$this->readableErrors = $this->gump->get_readable_errors(true);
                 return false;
             } else {
                 return true;

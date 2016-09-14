@@ -100,7 +100,9 @@ class PrivateAggregator {
             $this->gump->validation_rules( $this->get_validation_rules );
             $this->gump->filter_rules( $this->get_filter_rules );
             $this->parameters = $this->gump->run( $parms );
+			$this->unvalidated_parameters = $parms;
             if ( $this->parameters === false ) {
+				$this->readableErrors = $this->gump->get_readable_errors(true);
                 return false;
             } else {
                 return true;
@@ -120,7 +122,9 @@ class PrivateAggregator {
             $this->gump->validation_rules( $this->post_validation_rules );
             $this->gump->filter_rules( $this->post_filter_rules );
             $this->parameters = $this->gump->run( $parms );
+			$this->unvalidated_parameters = $parms;
             if ( $this->parameters === false ) {
+				$this->readableErrors = $this->gump->get_readable_errors(true);
                 return false;
             } else {
                 return true;
