@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- new function in BasicDao->getArrayByFieldList()
 - new function make_complete_url in utils/loaders.php that allow user to create a url indipendetely from the office he is workin in
 - PublicAggregator->redirectToCompleteUrl that allows to make a redirect using the utils/loader function make_complete_url
 - PublicAggregator->redirectToPage that allows to make a redirect using the utils/loader function make_url

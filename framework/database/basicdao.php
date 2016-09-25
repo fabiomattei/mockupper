@@ -31,15 +31,15 @@ class BasicDao {
     /**
      * Setter method for database connection
      */
-    public function setPDO($PDO) {
-        $this->DBH = $PDO;
+    public function setDBH($DBH) {
+        $this->DBH = $DBH;
     }
 
     /**
      * Database connection getter
      * I can use the already made connection for next database call
      */
-    public function getPDO() {
+    public function getDBH() {
         return $this->DBH;
     }
 
@@ -210,7 +210,7 @@ class BasicDao {
      * Example:
      * const DB_TABLE_PK = 'stp_id';
      */
-    function delete($id) {
+    function delete( $id ) {
         try {
             $STH = $this->DBH->prepare('DELETE FROM ' . $this::DB_TABLE . ' WHERE ' . $this::DB_TABLE_PK . ' = :id');
             $STH->bindParam(':id', $id);
@@ -235,7 +235,7 @@ class BasicDao {
      * Example:
      * const DB_TABLE = 'mytablename';
      */
-    function deleteByFields($fields) {
+    function deleteByFields( $fields ) {
         $filedslist = '';
         foreach ($fields as $key => $value) {
             $filedslist .= $key . ' = :' . $key . ' AND ';
@@ -303,7 +303,7 @@ class BasicDao {
     }
 
     /**
-     * This funciton allows user to get a set of elements from a table.
+     * This function allows user to get a set of elements from a table.
      *
      * @param $fieldname                name of field that needs to be confronted with the array of ids
      * @param $ids                      array of ids
@@ -353,6 +353,68 @@ class BasicDao {
             return array();
         }
     }
+    
+    /**
+     * This function allows user to get a set of elements from a table.
+     *
+     * @param $fieldname                name of field that needs to be confronted with the array of ids
+     * @param $ids                      array of ids
+     * @param $conditionsfields
+     * @param string $orderby
+     * @param string $requestedfields
+     * @return array|PDOStatement
+     * @throws GeneralException
+     */
+    public function getArrayByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none') {
+        if (count($ids) > 0) {
+            $ids_string = join(',', $ids);
+
+            $filedslist = $this->organizeConditionsFields($conditionsfields);
+
+            $requestedfieldlist = $this->organizeRequestedFields($requestedfields);
+
+            $orderbyfieldlist = $this->organizeOrderByFields($orderby);
+
+            try {
+                // building the query
+                $query = 'SELECT ' . $requestedfieldlist . ' FROM ' . $this::DB_TABLE . ' ';
+                $query .= 'WHERE ' . $fieldname . ' IN (' . $ids_string . ') ';
+                if ($filedslist != '') {
+                    $query .= 'AND ' . $filedslist;
+                }
+                $query .= $orderbyfieldlist;
+
+                $STH = $this->DBH->prepare($query);
+
+                foreach ($conditionsfields as $key => &$value) {
+                    $STH->bindParam($key, $value);
+                }
+
+                $STH->execute();
+
+                # setting the fetch mode
+                $STH->setFetchMode(PDO::FETCH_OBJ);
+
+                $out = array();
+                while ($item = $STH->fetch()) {
+                    $id = $item->{$this::DB_TABLE_PK};
+                    $out[$id] = $item;
+                }
+
+                return $out;
+            } catch (PDOException $e) {
+                $logger = new Logger();
+                $logger->write($e->getMessage(), __FILE__, __LINE__);
+                throw new GeneralException('General malfuction!!!');
+            }
+        } else {
+            return array();
+        }
+    }
+    
+    
+    
+
 
     /**
      * This is the basic function for getting one element from a table.
