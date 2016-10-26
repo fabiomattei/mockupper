@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This is the main script.
+ *
+ * This script processes all requests to the application, it makes an interpretation
+ * of the URL, in calls the right controller and pass the parameters to the 
+ * selected controller.
+ * In order to develop an application you do not need to touch this script.
+ */
+
 require_once 'settings.php';
 
 // TODO check cron operations
@@ -14,12 +23,12 @@ $parameters = array();
 
 if ( strlen( $request ) > 0 ) {
 	
-	list( $office, $chapter, $controller, $parameters ) = spliturl( $request );
+	list( $team, $chapter, $controller, $parameters ) = spliturl( $request );
 	
-	$controller = controller( $office, $chapter, $controller );
+	$controller = controller( $team, $chapter, $controller );
     $controller->setParameters( $parameters );
     $controller->setRequest( $request );
-    $controller->setControllerPath( $office, $chapter, $controller );
+    $controller->setControllerPath( $team, $chapter, $controller );
 } else {
     $controller = controller( OFFICE, CHAPTER, CONTROLLER );
     $controller->setParameters( $parameters );

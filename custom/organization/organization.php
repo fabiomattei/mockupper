@@ -7,56 +7,54 @@
  */
 class Organization {
 	
-	const pescara_id = 1;
+	const site_one_id = 1;
 
 	static $sites = array( 
-		Organization::pescara_id => 'Pescara',
+		Organization:site_one_id => 'Site one',
 	);
 	
-	const adm_office_id = 1;
-	const ramp_office_id = 2;
-	const manager_office_id = 3;
-	const safety_office_id = 4;
-	const admin_id = 99;
+	const team_one_id = 1;
+	const team_two_id = 2;
+	const team_three_id = 3;
+	const team_admin_id = 99;
 	
-	static $offices = array( 
-		Organization::adm_office_id     => 'ADM', 
-		Organization::ramp_office_id    => 'Ramp',
-		Organization::manager_office_id => 'Manager',
-		Organization::safety_office_id  => 'Safety',
-		Organization::admin_id          => 'Admin',
+	static $teams = array( 
+		Organization::team_one_id   => 'Team one', 
+		Organization::team_two_id   => 'Team two',
+		Organization::team_three_id => 'Team three',
+		Organization::team_admin_id => 'Admin',
 	);
 	
 	// Associate a specific chapert to offices that have access to it
 	static $chapters = array( 
-		Organization::adm_office_id => array(
-			'riskregister', 'reports'
+		Organization::team_one_id => array(
+			'chapter_one', 'chapter_two'
 		),
-		Organization::ramp_office_id => array(
-			'riskregister', 'reports', 'maintenance'
+		Organization::team_two_id => array(
+			'chapter_one', 'chapter_two', 'chapter_thre'
 		),
-		Organization::manager_office_id => array(
-			'riskregister', 'reports'
+		Organization::team_three_id => array(
+			'chapter_two', 'chapter_thre'
 		),
-		Organization::safety_office_id => array(
-			'riskregister', 'reports', 'gsr',
+		Organization::team_admin_id => array(
+			'chapter_admin',
 		),
 	);
 	
 	static function get_site( $site_id ) {
-		return Organization::$offices[$site_id];
+		return Organization::$teams[$site_id];
 	}
 
 	static function get_sites() {
 		return Organization::$sites;
 	}
 
-	static function get_office( $office_id ) {
-		return Organization::$offices[$office_id];
+	static function get_office( $team_id ) {
+		return Organization::$teams[$team_id];
 	}
 	
 	static function get_offices() {
-		return Organization::$offices;
+		return Organization::$teams;
 	}
 
 }

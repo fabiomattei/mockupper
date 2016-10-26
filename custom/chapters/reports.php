@@ -80,13 +80,13 @@ class Reports {
 		'recommendationlog'         => array( 'read',   'recommendation' ),
 	);
 	
-	static function entries_office_can_see_in_menu( $office_id ) {
+	static function entries_office_can_see_in_menu( $team_id ) {
 		return Reports::$menu;
 	}
 	
-	static function authorize_operation( $controller, $office_id ) {
+	static function authorize_operation( $controller, $team_id ) {
 		list($action, $entry) = Reports::$controller[$controller];
-		return in_array( $office_id, Reports::$authorization[$entry][$action] );
+		return in_array( $team_id, Reports::$authorization[$entry][$action] );
 	}
 
 }

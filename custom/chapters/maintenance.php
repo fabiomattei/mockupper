@@ -88,13 +88,13 @@ class Maintenance {
 		'periodicmaintenanceedit'           => array( 'write',  'periodicmaintenance' ),
 	);
 	
-	static function entries_office_can_see_in_menu( $office_id ) {
+	static function entries_office_can_see_in_menu( $team_id ) {
 		return Maintenance::$menu;
 	}
 	
-	static function authorize_operation( $controller, $office_id ) {
+	static function authorize_operation( $controller, $team_id ) {
 		list($action, $entry) = Maintenance::$controller[$controller];
-		return in_array( $office_id, Maintenance::$authorization[$entry][$action] );
+		return in_array( $team_id, Maintenance::$authorization[$entry][$action] );
 	}
 
 }

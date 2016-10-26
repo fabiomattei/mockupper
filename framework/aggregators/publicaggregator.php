@@ -242,9 +242,9 @@ class PublicAggregator {
      * it creates the url using the library function make_url form loaders.php
      * It send flash messages to new controller [info, warning, error, success]
      */
-    public function redirectToCompleteUrl($office = 'public', $group = 'main', $action = '', $parameters = '', $extension = '.html') {
+    public function redirectToCompleteUrl($team = 'public', $group = 'main', $action = '', $parameters = '', $extension = '.html') {
         if ( APPTESTMODE != 'on' ) {
-            header( 'Location: ' . make_complete_url( $office, $group, $action, $parameters, $extension ) );
+            header( 'Location: ' . make_complete_url( $team, $group, $action, $parameters, $extension ) );
             die();
         }
     }

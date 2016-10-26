@@ -511,13 +511,13 @@ function utils( $path ) {
  *                          instead to "require" the file.
  * @return       string     Just for testing purpose
  */
-function controller( $office, $chapter, $action = 'index' ) {
+function controller( $team, $chapter, $action = 'index' ) {
 	
-	$filepath1 = 'controllers/'.$office.'/'.$chapter.'/'.$action.'.php';
+	$filepath1 = 'controllers/'.$team.'/'.$chapter.'/'.$action.'.php';
 	
 	if ( file_exists( $filepath1 ) ) {
 		require_once $filepath1;
-		$class_name = ucfirst($office).'_'.ucfirst($chapter).'_'.ucfirst($action);
+		$class_name = ucfirst($team).'_'.ucfirst($chapter).'_'.ucfirst($action);
 		return new $class_name;
 	}
 	
@@ -530,7 +530,7 @@ function controller( $office, $chapter, $action = 'index' ) {
 	}
 	
 	$logger = new Logger();
-	$logger->write( 'ERROR: -controller- does not exists: ' . $office . '-' . $chapter . '-' . $action );
+	$logger->write( 'ERROR: -controller- does not exists: ' . $team . '-' . $chapter . '-' . $action );
 }
 
 function private_aggregator() {
@@ -587,18 +587,18 @@ function make_url( $chapter = 'main', $action = '', $parameters = '', $extension
  *
  * @return       string     The url well formed
  */
-function make_complete_url( $office = 'public', $chapter = 'main', $action = '', $parameters = '', $extension = '.html' ) {
+function make_complete_url( $team = 'public', $chapter = 'main', $action = '', $parameters = '', $extension = '.html' ) {
 
     if ( $chapter == 'main' AND $action == '' ) {
         return BASEPATH;
     }
     if ( $chapter != 'main' AND $action == '' ) {
-        return BASEPATH.$office.'-'.$chapter.'/index.html';
+        return BASEPATH.$team.'-'.$chapter.'/index.html';
     }
     if ( $chapter == 'main' ) {
-        return BASEPATH.$office.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+        return BASEPATH.$team.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     } else {
-        return BASEPATH.$office.'-'.$chapter.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+        return BASEPATH.$team.'-'.$chapter.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     }
 
 }
