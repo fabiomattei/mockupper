@@ -31,10 +31,10 @@ class Organization {
 			'chapter_one', 'chapter_two'
 		),
 		Organization::team_two_id => array(
-			'chapter_one', 'chapter_two', 'chapter_thre'
+			'chapter_one', 'chapter_two', 'chapter_three'
 		),
 		Organization::team_three_id => array(
-			'chapter_two', 'chapter_thre'
+			'chapter_two', 'chapter_three'
 		),
 		Organization::team_admin_id => array(
 			'chapter_admin',
