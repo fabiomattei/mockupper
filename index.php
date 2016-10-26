@@ -2,12 +2,6 @@
 
 require_once 'settings.php';
 
-// checking if I am using https
-if ( RUNNINGENVIRONMENT === 'production' AND $_SERVER['HTTPS'] === 'off' ) {
-	header( 'Location: '.BASEPATH );
-	die();
-}
-
 // TODO check cron operations
 
 // remove the directory path we don't want
@@ -20,17 +14,17 @@ $parameters = array();
 
 if ( strlen( $request ) > 0 ) {
 	
-	list( $family, $subfamily, $aggregator, $parameters ) = spliturl( $request );
+	list( $office, $chapter, $controller, $parameters ) = spliturl( $request );
 	
-	$controller = controller( $family, $subfamily, $aggregator );
+	$controller = controller( $office, $chapter, $controller );
     $controller->setParameters( $parameters );
     $controller->setRequest( $request );
-    $controller->setControllerPath( $family, $subfamily, $aggregator );
+    $controller->setControllerPath( $office, $chapter, $controller );
 } else {
-    $controller = controller( FAMILY, SUBFAMILY, AGGREGATOR );
+    $controller = controller( OFFICE, CHAPTER, CONTROLLER );
     $controller->setParameters( $parameters );
     $controller->setRequest( $request );
-    $controller->setControllerPath( FAMILY, SUBFAMILY, AGGREGATOR );
+    $controller->setControllerPath( OFFICE, CHAPTER, CONTROLLER );
 }
 
 $controller->showPage();

@@ -30,9 +30,9 @@ define('APPNAMEFORPAGETITLE', 'Mockupper');
  * here you can set the file open by default when a general user is visiting the 
  * base URL of the system
  */
-define('FAMILY',     'public');
-define('SUBFAMILY',  '');
-define('AGGREGATOR', 'login');
+define('OFFICE',     'public');
+define('CHAPTER',  '');
+define('CONTROLLER', 'login');
 
 /* 
  * PREDIFINED TEMPLATES FILES
