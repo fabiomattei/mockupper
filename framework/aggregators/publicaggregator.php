@@ -1,5 +1,7 @@
 <?php
 
+require_once 'framework/libs/gump/gump.class.php';
+
 class PublicAggregator {
 
 	public $get_validation_rules = array();
@@ -9,6 +11,8 @@ class PublicAggregator {
 	
 	public function __construct() {
 		session_start();
+		
+		$_SESSION['office'] = PUBLICFAMILY;
 		
 		// setting an array containing all parameters
 		$this->parameters = array();
@@ -27,6 +31,8 @@ class PublicAggregator {
 		$this->thirdcentralcontainer  = array();
 		$this->bottomcontainer        = array();
 		$this->templateFile           = PUBLICTEMPLATE;
+
+		$this->gump = new GUMP();
 		
 		$this->addToHead = '';
 		$this->addToFoot = '';
@@ -244,3 +250,4 @@ class PublicAggregator {
     }
 
 }
+

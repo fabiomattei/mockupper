@@ -33,8 +33,30 @@ function spliturl( $request ) {
 	if ( isset( $params[2] ) ) { $parameters[] = $params[2]; }
 	if ( isset( $params[3] ) ) { $parameters[] = $params[3]; }
 	if ( isset( $params[4] ) ) { $parameters[] = $params[4]; }
-	
-	return array( $folder, $subfolder, $action, $parameters );
+	if ( isset( $params[5] ) ) { $parameters[] = $params[5]; }
+	if ( isset( $params[6] ) ) { $parameters[] = $params[6]; }
+
+	if ( validate_string( $folder ) AND validate_string( $subfolder ) AND validate_string( $action ) )
+		return array( $folder, $subfolder, $action, $parameters );
+	else 
+		throw new GeneralException('Illegal access to spliturl!!!');
+}
+
+/**
+ * validate that the parameter is composed only by letters or numbers
+ * the problem with ctype_alnum is that ctype_alnum('') == false
+ * so I had to force to return true in case of an empty string
+ * In case of a too long string it return false
+ * In case of a string long between 1 and 40 characters il applies the function ctype_alnum
+ *
+ * @param  string   $string_var :: the string to validate
+ * @return boolean
+ */
+function validate_string( $string_var ) {
+	if ( strlen( $string_var ) == 0 ) return true;
+	if ( strlen( $string_var ) > 40 ) return false;
+	if ( ctype_alnum( $string_var ) ) return true;
+	return false;
 }
 
 // TODO check this function

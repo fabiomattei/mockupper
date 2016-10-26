@@ -11,12 +11,12 @@
  * name matches a core block file name.
  * If it does not match it checks the "aggregators" folder looking for a file named:
  * aggregatos/$type/blocks/$path.php
- * If no file is found it checks the "datastore" folder looking for a file named:
- * datastore/$type/blocks/$path.php
+ * If no file is found it checks the "chapter" folder looking for a file named:
+ * chapter/$type/blocks/$path.php
  *
  * If no file is found the function writes an ERROR message in the log
  *
- * @param        string     datastore name or office name or 'core'
+ * @param        string     chapter name or office name or 'core'
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
@@ -39,8 +39,8 @@ function block( $type, $path ) {
 		    require_once 'controllers/'.$type.'/blocks/'.$path.'.php';
 		}
 
-		if ( file_exists( 'datastore/'.$type.'/blocks/'.$path.'.php' ) ) {
-		    require_once 'datastore/'.$type.'/blocks/'.$path.'.php';
+		if ( file_exists( 'chapters/'.$type.'/blocks/'.$path.'.php' ) ) {
+		    require_once 'chapters/'.$type.'/blocks/'.$path.'.php';
 		}
 	}
 }
@@ -51,16 +51,16 @@ function block( $type, $path ) {
  * in a folder named "usecases" inside the postype folder.
  * If the usecase file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function usecase( $datastore, $path ) {
+function usecase( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/usecases/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/usecases/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -84,16 +84,16 @@ function usecase( $datastore, $path ) {
  * in a folder named "dao" inside the postype folder.
  * If the dao file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function dao( $datastore, $path ) {
+function dao( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/dao/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/dao/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -119,22 +119,22 @@ function dao( $datastore, $path ) {
  * in a folder named "dao" inside the postype folder.
  * If the dao file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       new dao()  that can be used in the code and saves some line of code
  */
-function dao_exp( $datastore, $path ) {
+function dao_exp( $chapter, $path, $connection = '' ) {
 
- 	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+ 	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
- 	$filepath = 'datastore/'.$datastore.'/dao/'.strtolower($path).'.php';
+ 	$filepath = 'chapters/'.$chapter.'/dao/'.strtolower($path).'.php';
 
  	if ( TESTMODE == 'on' ) return $filepath;
 
  	if ( APPTESTMODE == 'on' ) {
 		$fakedaoname = $path.'Fake';
- 		$filepath = 'test/fakedaos/'.$datastore.'/'.strtolower($fakedaoname).'.php';
+ 		$filepath = 'test/fakedaos/'.$chapter.'/'.strtolower($fakedaoname).'.php';
  	}
 
  	if ( file_exists( $filepath ) ) {
@@ -143,7 +143,11 @@ function dao_exp( $datastore, $path ) {
 		if ( isset( $fakedaoname ) )  {
 			return new $fakedaoname();
 		} else {
-			return new $path();
+			$dao = new $path();
+			if ( !is_string( $connection ) ) {
+				$dao->setDBH( $connection );
+			}
+			return $dao;
 		}
 
  	} else {
@@ -162,87 +166,87 @@ function dao_exp( $datastore, $path ) {
  * in a folder named "paperworks" inside the postype folder.
  * If the paperwork file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function paperwork( $datastore, $path ) {
+function paperwork( $chapter, $class_name ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $class_name == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/paperworks/'.strtolower($path).'.php';
+	$filepath = 'custom/paperworks/'.$chapter.'/'.strtolower($class_name).'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
 	if ( file_exists( $filepath ) ) {
 
- 	    require_once $filepath;
- 	    if (class_exists($path)) {
-    		return new $path();
+		require_once $filepath;
+		if (class_exists($class_name)) {
+			return new $class_name();
 		} else {
 			require_once( 'framework/paperworks/basicpaper.php' );
 			return new BasicPaper();
 		}
 
- 	} else {
+	} else {
 
- 		require_once( 'framework/paperworks/basicpaper.php' );
+		require_once( 'framework/paperworks/basicpaper.php' );
 		return new BasicPaper();
 
- 	}
+	}
 }
 
 /**
  * Load an paperflow file.
- * Paperflows tell us what is the path (flow) of the paper inside the system.
+ * Paperflows tell us what is the class_name (flow) of the paper inside the system.
  * If the paperflow file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
- * @param        string     path concatenated to file name
+ * @param        string     chapter name
+ * @param        string     class_name concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function paperflow( $datastore, $path ) {
+function paperflow( $chapter, $class_name ) {
 
-	$filepath = 'datastore/'.$datastore.'/paperflows/'.strtolower($path).'.php';
+	$filepath = 'custom/paperflows/'.$chapter.'/'.strtolower($class_name).'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
 	if ( file_exists( $filepath ) ) {
 
- 	    require_once $filepath;
- 	    if (class_exists($path)) {
-    		return new $path();
+		require_once $filepath;
+		if (class_exists($class_name)) {
+			return new $class_name();
 		}else {
 			require_once( 'framework/paperworks/basicflow.php' );
 			return new BasicFlow();
 		}
 
- 	} else {
+	} else {
 
- 		require_once( 'framework/paperworks/basicflow.php' );
+		require_once( 'framework/paperworks/basicflow.php' );
 		return new BasicFlow();
 
- 	}
+	}
 }
 
 /**
  * Load an helper file.
- * helpers are associated to a datastore, in effect they all are contained
- * in a folder named "helpers" inside the datastore folder.
+ * helpers are associated to a chapter, in effect they all are contained
+ * in a folder named "helpers" inside the chapter folder.
  * If the helper file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function helper( $datastore, $path ) {
+function helper( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/helpers/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/helpers/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -266,16 +270,16 @@ function helper( $datastore, $path ) {
  * in a folder named "partial" inside the postype folder.
  * If the partial file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function partial( $datastore, $path ) {
+function partial( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/partial/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/partial/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -295,20 +299,20 @@ function partial( $datastore, $path ) {
 
 /**
  * Load an importer file.
- * importers are associated to a datastore, in effect they all are contained
- * in a folder named "importers" inside the datastore folder.
+ * importers are associated to a chapter, in effect they all are contained
+ * in a folder named "importers" inside the chapter folder.
  * If the importer file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function importer( $datastore, $path ) {
+function importer( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/importers/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/importers/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -328,20 +332,20 @@ function importer( $datastore, $path ) {
 
 /**
  * Load an exporter file.
- * exporters are associated to a datastore, in effect they all are contained
- * in a folder named "exporters" inside the datastore folder.
+ * exporters are associated to a chapter, in effect they all are contained
+ * in a folder named "exporters" inside the chapter folder.
  * If the exporter file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function exporter( $datastore, $path ) {
+function exporter( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/exporters/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/exporters/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -361,20 +365,20 @@ function exporter( $datastore, $path ) {
 
 /**
  * Load an exporter file.
- * exporters are associated to a datastore, in effect they all are contained
- * in a folder named "exporters" inside the datastore folder.
+ * exporters are associated to a chapter, in effect they all are contained
+ * in a folder named "exporters" inside the chapter folder.
  * If the exporter file is not found the systems writes an ERROR message in the log
  *
- * @param        string     datastore name
+ * @param        string     chapter name
  * @param        string     path concatenated to file name
  *
  * @return       string     Just for testing purpose
  */
-function model( $datastore, $path ) {
+function model( $chapter, $path ) {
 
-	if ( $datastore == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
+	if ( $chapter == '' OR $path == '' ) throw new GeneralException('General malfuction!!!');
 
-	$filepath = 'datastore/'.$datastore.'/model/'.$path.'.php';
+	$filepath = 'chapters/'.$chapter.'/model/'.$path.'.php';
 
 	if ( TESTMODE == 'on' ) return $filepath;
 
@@ -451,7 +455,7 @@ function lib( $path ) {
 		if ( TESTMODE == 'on' ) return '';
 
 		$logger = new Logger();
-		$logger->write( 'ERROR: -library- file dose not exists: '.$filepath );
+		$logger->write( 'ERROR: -library- file dose not exists: '.$path );
 
 	}
 }
@@ -507,33 +511,26 @@ function utils( $path ) {
  *                          instead to "require" the file.
  * @return       string     Just for testing purpose
  */
-function controller( $folder, $subfolder, $action ) {
-	// default out path
-	$filepath = 'controllers';
-
-	if ( $folder != '' ) {
-		$filepath .= '/'.$folder;
+function controller( $office, $chapter, $action = 'index' ) {
+	
+	$filepath1 = 'controllers/'.$office.'/'.$chapter.'/'.$action.'.php';
+	
+	if ( file_exists( $filepath1 ) ) {
+		require_once $filepath1;
+		$class_name = ucfirst($office).'_'.ucfirst($chapter).'_'.ucfirst($action);
+		return new $class_name;
 	}
-
-	if ( $subfolder != '' ) {
-		$filepath .= '/'.$subfolder;
+	
+	$filepath2 = 'chapters/'.$chapter.'/controllers/'.$action.'.php';
+	
+	if ( file_exists( $filepath2 ) ) {
+		require_once $filepath2;
+		$class_name = ucfirst($chapter).'_'.ucfirst($action);
+		return new $class_name;
 	}
-
-	if ( $action == '' ) {
-		$filepath .= '/index.php';
-	} else {
-		$filepath .= '/'.$action.'.php';
-	}
-
-	if ( TESTMODE == 'on' ) return $filepath;
-
-	if ( file_exists( $filepath ) ) {
-		require_once $filepath;
-		return ucfirst($folder).'_'.ucfirst($subfolder).'_'.ucfirst($action);
-	} else {
-		$logger = new Logger();
-		$logger->write( 'ERROR: -controller- file dose not exists: '.$filepath );
-	}
+	
+	$logger = new Logger();
+	$logger->write( 'ERROR: -controller- does not exists: ' . $office . '-' . $chapter . '-' . $action );
 }
 
 function private_aggregator() {
@@ -553,53 +550,55 @@ function public_aggregator() {
  *
  * Result is: BASEPATH . $_SESSION['office'] . $final_part
  *
- * @param        string     Group
+ * @param        string     Chapter
  * @param        string     Action
  * @param        string     Parameters: string containing all parameters separated by '/'
  * @param        string     Extension:  .html by default
  *
  * @return       string     The url well formed
  */
-function make_url( $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
+function make_url( $chapter = 'main', $action = '', $parameters = '', $extension = '.html' ) {
 
-	if ( $group == 'main' AND $action == '' ) {
+	if ( $chapter == 'main' AND $action == '' ) {
 		return BASEPATH;
 	}
-	if ( $group != 'main' AND $action == '' ) {
-		return BASEPATH.$_SESSION['office'].'-'.$group.'/index.html';
+	if ( $chapter != 'main' AND $action == '' ) {
+		return BASEPATH.$_SESSION['office'].'-'.$chapter.'/index.html';
 	}
-    if ( $group == 'main' ) {
+    if ( $chapter == 'main' ) {
         return BASEPATH.$_SESSION['office'].'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     } else {
-        return BASEPATH.$_SESSION['office'].'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+        return BASEPATH.$_SESSION['office'].'-'.$chapter.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     }
 
 }
 
 /**
- * It creates a complete URL
+ * It creates a URL all depending from parameters
+ * It is not going to use $_SESSION['office'] variable
  *
- * Result is: BASEPATH . $office . $final_part
+ * Result is: BASEPATH . $final_part
  *
- * @param        string     Group
+ * @param        string     Office
+ * @param        string     Chapter
  * @param        string     Action
  * @param        string     Parameters: string containing all parameters separated by '/'
  * @param        string     Extension:  .html by default
  *
  * @return       string     The url well formed
  */
-function make_complete_url( $office = 'public', $group = 'main', $action = '', $parameters = '', $extension = '.html' ) {
+function make_complete_url( $office = 'public', $chapter = 'main', $action = '', $parameters = '', $extension = '.html' ) {
 
-    if ( $group == 'main' AND $action == '' ) {
+    if ( $chapter == 'main' AND $action == '' ) {
         return BASEPATH;
     }
-    if ( $group != 'main' AND $action == '' ) {
-        return BASEPATH.$office.'-'.$group.'/index.html';
+    if ( $chapter != 'main' AND $action == '' ) {
+        return BASEPATH.$office.'-'.$chapter.'/index.html';
     }
-    if ( $group == 'main' ) {
+    if ( $chapter == 'main' ) {
         return BASEPATH.$office.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     } else {
-        return BASEPATH.$office.'-'.$group.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
+        return BASEPATH.$office.'-'.$chapter.'/'.$action.( $parameters == '' ? '' : '/'.$parameters ).$extension;
     }
 
 }
@@ -610,14 +609,14 @@ function make_complete_url( $office = 'public', $group = 'main', $action = '', $
  * Result is: BASEPATH . $_SESSION['office'] . $final_part
  *
  * @param        string     Text for link
- * @param        string     Group
+ * @param        string     Chapter
  * @param        string     Action
  * @param        string     Parameters: string containing all parameters separated by '/'
  * @param        string     Extension:  .html by default
  *
  * @return       string     The url well formed
  */
-function make_link( $text, $group = 'main', $action = '', $args = '' ) {
+function make_link( $text, $chapter = 'main', $action = '', $args = '' ) {
 	// default values
 	$class_string = '';
 	$parameters_string = '';
@@ -637,5 +636,5 @@ function make_link( $text, $group = 'main', $action = '', $args = '' ) {
 		}
 	}
 
-	return '<a href="'.make_url($group, $action, $parameters_string, $extension_string).'" '.$class_string.' '.$onclick_string.'>'.$text.'</a>';
+	return '<a href="'.make_url($chapter, $action, $parameters_string, $extension_string).'" '.$class_string.' '.$onclick_string.'>'.$text.'</a>';
 }

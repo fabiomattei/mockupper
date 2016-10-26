@@ -19,7 +19,7 @@ class GaeMailer {
 
 		try {
 			$message = new Message();
-			$message->setSender("cihscenter@gmail.com");
+			$message->setSender(EMAIL_SENDER);
 			$message->addTo( $dest_email );
 			$message->setSubject( $object );
 			$message->setTextBody( $messagebody );
@@ -40,7 +40,7 @@ class GaeMailer {
 
 		try {
 			$message = new Message();
-			$message->setSender("cihscenter@gmail.com");
+			$message->setSender(EMAIL_SENDER);
             foreach( $dest_emails as $em) {
                 $message->addTo( $em );
             }

@@ -2,7 +2,7 @@
 
 /**
  * Created by Fabio Mattei <matteif@tcd.ie>
- * Date: 18/04/2016
+ * Date: 20/05/2016
  * Time: 12:22
  */
 class BasicFlow {
@@ -14,26 +14,31 @@ class BasicFlow {
 
     public $states = array(
         'received'      => 'RECEIVED',
+		'open'          => 'OPEN',
         'closed'        => 'CLOSED',
     );
 
     public $description = array(
         'received'      => '',
+		'open'          => '',
         'closed'        => '',
     );
 
     public $next_state_description = array(
         'received'      => '',
+		'open'          => '',
         'closed'        => '',
     );
 
     public $time_limit = array(
         'received'      => '2 months',
-        'closed'        => '',
+		'open'          => '2 months',
+        'closed'        => '10 years',
     );
 
     public $required_papers = array(
         'received'      => '',
+		'open'          => '',
         'closed'        => '',
     );
 
@@ -69,4 +74,11 @@ class BasicFlow {
         }
     }
 
+    function get_required_paper( $index ) {
+        if ( isset( $this->required_papers[$index] ) ) {
+            return $this->required_papers[$index];
+        } else {
+            return '';
+        }
+    }
 }

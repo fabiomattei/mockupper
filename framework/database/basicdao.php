@@ -353,15 +353,15 @@ class BasicDao {
             return array();
         }
     }
-    
+	
     /**
      * This function allows user to get a set of elements from a table.
      *
-     * @param $fieldname                name of field that needs to be confronted with the array of ids
-     * @param $ids                      array of ids
-     * @param $conditionsfields
-     * @param string $orderby
-     * @param string $requestedfields
+     * @param  $fieldname                name of field that needs to be confronted with the array of ids
+     * @param  $ids                      array of ids
+     * @param  $conditionsfields
+     * @param  string $orderby
+     * @param  string $requestedfields
      * @return array|PDOStatement
      * @throws GeneralException
      */
@@ -390,18 +390,18 @@ class BasicDao {
                     $STH->bindParam($key, $value);
                 }
 
-                $STH->execute();
+	            $STH->execute();
 
-                # setting the fetch mode
-                $STH->setFetchMode(PDO::FETCH_OBJ);
+	            # setting the fetch mode
+	            $STH->setFetchMode(PDO::FETCH_OBJ);
 
-                $out = array();
-                while ($item = $STH->fetch()) {
-                    $id = $item->{$this::DB_TABLE_PK};
-                    $out[$id] = $item;
-                }
+			    $out = array();
+			    while ($item = $STH->fetch()) {
+			        $id = $item->{$this::DB_TABLE_PK};
+			        $out[$id] = $item;
+			    }
 
-                return $out;
+			    return $out;
             } catch (PDOException $e) {
                 $logger = new Logger();
                 $logger->write($e->getMessage(), __FILE__, __LINE__);
@@ -411,9 +411,9 @@ class BasicDao {
             return array();
         }
     }
-    
-    
-    
+	
+	
+	
 
 
     /**

@@ -4,8 +4,8 @@ require_once 'settings.php';
 
 // checking if I am using https
 if ( RUNNINGENVIRONMENT === 'production' AND $_SERVER['HTTPS'] === 'off' ) {
-    header( 'Location: '.BASEPATH );
-    die();
+	header( 'Location: '.BASEPATH );
+	die();
 }
 
 // TODO check cron operations
@@ -19,27 +19,18 @@ $request  = preg_replace( '/\?.*/', '', $request3 );
 $parameters = array();
 
 if ( strlen( $request ) > 0 ) {
-    list( $family, $subfamily, $aggregator, $parameters ) = spliturl( $request );
-
-    $returned_action = controller( $family, $subfamily, $aggregator );
-
-    if ( class_exists( $returned_action ) ) {
-        $controller = new $returned_action();
-    } else {
-        $controller = new Aggregator();
-    }
+	
+	list( $family, $subfamily, $aggregator, $parameters ) = spliturl( $request );
+	
+	$controller = controller( $family, $subfamily, $aggregator );
     $controller->setParameters( $parameters );
     $controller->setRequest( $request );
     $controller->setControllerPath( $family, $subfamily, $aggregator );
 } else {
-    $returned_action = controller( FAMILY, SUBFAMILY, AGGREGATOR );
-
-    $controller = new $returned_action();
+    $controller = controller( FAMILY, SUBFAMILY, AGGREGATOR );
     $controller->setParameters( $parameters );
     $controller->setRequest( $request );
     $controller->setControllerPath( FAMILY, SUBFAMILY, AGGREGATOR );
 }
 
-
 $controller->showPage();
-

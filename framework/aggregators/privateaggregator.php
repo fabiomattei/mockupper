@@ -139,22 +139,54 @@ class PrivateAggregator {
     public function show_post_error_page() {
         throw new GeneralException('General malfuction!!!');
     }
+	
+    /**
+     * This method has to be implemented by inerithed class
+	 * It return true by defult for compatiblity issues
+     */
+    public function check_authorization_get_request() {
+        return true;
+    }
+
+    /**
+     * This method has to be implemented by inerithed class
+	 * It return true by defult for compatiblity issues
+     */
+    public function check_authorization_post_request() {
+        return true;
+    }
+
+    public function show_get_authorization_error_page() {
+        throw new GeneralException('Authorization error!!!');
+    }
+
+    public function show_post_authorization_error_page() {
+        throw new GeneralException('Authorization error!!!');
+    }
 
     public function showPage() {
         $time_start = microtime(true);
 
         if ($this->isGetRequest()) {
-            if ( $this->check_get_request() ) {
-                $this->getRequest();
-            } else {
-                $this->show_get_error_page();
-            }
+			if ( $this->check_authorization_get_request() ) {
+	            if ( $this->check_get_request() ) {
+	                $this->getRequest();
+	            } else {
+	                $this->show_get_error_page();
+	            }
+			} else {
+				$this->check_authorization_get_request();
+			}
         } else {
-            if ( $this->check_post_request() ) {
-                $this->postRequest();
-            } else {
-                $this->show_post_error_page();
-            }
+			if ( $this->check_authorization_post_request() ) {
+	            if ( $this->check_post_request() ) {
+	                $this->postRequest();
+	            } else {
+	                $this->show_post_error_page();
+	            }
+			} else {
+				$this->check_authorization_post_request();
+			}
         }
 
         $this->loadTemplate();
